@@ -98,13 +98,11 @@
 		wpaperd
 		hyprshot
 
-		xdo
-		xorg.libXtst
-		xorg.libX11
-		xorg.libxcb
-		libevdev
-		libxkbcommon
+		man-pages
+		man-pages-posix
 	];
+
+	documentation.dev.enable = true;
 
 	environment.variables.EDITOR = "nvim";
 
