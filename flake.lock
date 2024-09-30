@@ -1,0 +1,169 @@
+{
+  "nodes": {
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696426674,
+        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1727383923,
+        "narHash": "sha256-4/vacp3CwdGoPf8U4e/N8OsGYtO09WTcQK5FqYfJbKs=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "ffe2d07e771580a005e675108212597e5b367d2d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "libnbtplusplus": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1650031308,
+        "narHash": "sha256-TvVOjkUobYJD9itQYueELJX3wmecvEdCbJ0FinW2mL4=",
+        "owner": "PolyMC",
+        "repo": "libnbtplusplus",
+        "rev": "2203af7eeb48c45398139b583615134efd8d407f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "PolyMC",
+        "repo": "libnbtplusplus",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1727348695,
+        "narHash": "sha256-J+PeFKSDV+pHL7ukkfpVzCOO7mBSrrpJ3svwBFABbhI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "1925c603f17fc89f4c8f6bf6f631a802ad85d784",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1722141560,
+        "narHash": "sha256-Ul3rIdesWaiW56PS/Ak3UlJdkwBrD4UcagCmXZR9Z7Y=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "038fb464fcfa79b4f08131b07f2d8c9a6bcc4160",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1727348695,
+        "narHash": "sha256-J+PeFKSDV+pHL7ukkfpVzCOO7mBSrrpJ3svwBFABbhI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "1925c603f17fc89f4c8f6bf6f631a802ad85d784",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "polymc": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "libnbtplusplus": "libnbtplusplus",
+        "nixpkgs": "nixpkgs_2",
+        "tomlplusplus": "tomlplusplus"
+      },
+      "locked": {
+        "lastModified": 1722368390,
+        "narHash": "sha256-kOtsaINqDo9N7FQ5CFtYUZ0cPtk0d4WK6wVfFdTy2eE=",
+        "owner": "PolyMC",
+        "repo": "PolyMC",
+        "rev": "31d165a3b20888ff923bd632e83e9484dd9d2e3c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "PolyMC",
+        "repo": "PolyMC",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs",
+        "polymc": "polymc",
+        "zen-browser": "zen-browser"
+      }
+    },
+    "tomlplusplus": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1720775063,
+        "narHash": "sha256-9j8qNCITFPvKECY5Sjb2Ri5KcPzRrF0e7G2CUemIhBw=",
+        "owner": "marzer",
+        "repo": "tomlplusplus",
+        "rev": "e2bae9d559b4956a831fcef10ac8f01c88cb0d13",
+        "type": "github"
+      },
+      "original": {
+        "owner": "marzer",
+        "repo": "tomlplusplus",
+        "type": "github"
+      }
+    },
+    "zen-browser": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1727680504,
+        "narHash": "sha256-QYlWZwUSwrM7BuO+dXclZIwoPvBIuJr6GpFKv9XKFPI=",
+        "owner": "ch4og",
+        "repo": "zen-browser-flake",
+        "rev": "a026029bd9c953559a6990a5c0c80e355ed8a9dc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ch4og",
+        "repo": "zen-browser-flake",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
