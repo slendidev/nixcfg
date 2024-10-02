@@ -43,6 +43,12 @@
 	programs.hyprland.systemd.setPath.enable = true;
 
 	services.printing.enable = true;
+	services.printing.drivers = with pkgs; [
+		hplip
+		hplipWithPlugin
+	];
+
+	services.lorri.enable = true;
 
 	services.pipewire = {
 		enable = true;

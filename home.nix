@@ -51,9 +51,8 @@
 		mpv
 		ani-cli
 
-		odin
 		clang-tools
-		nasm
+		gf
 
 		btop
 		htop
@@ -62,6 +61,7 @@
 		playerctl
 		pamixer
 
+		easyeffects
 		pavucontrol
 		nautilus
 		nautilus-python
@@ -102,8 +102,6 @@
 			'';
 		};
 	};
-
-	services.lorri.enable = true;
 
 	imports = [
 		./programs/neovim

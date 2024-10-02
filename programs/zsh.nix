@@ -12,7 +12,7 @@
 			gc = "git commit -svS";
 			gs = "git status";
 			"gc!" = "git commit --amend";
-			gcld = "git clone --depth 1 --recurse --recursive-submodules";
+			gcld = "git clone --depth 1 --recursive --shallow-submodules";
 			gcl = "git clone --recurse";
 			gl = "git log";
 			gd = "git diff";
