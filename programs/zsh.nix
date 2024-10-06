@@ -45,7 +45,12 @@
 		export LESS_TERMCAP_ue=$'\e[0m'
 		export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-		gsudo='sudo git -c "include.path='"''${XDG_CONFIG_DIR:-$HOME/.config}/git/config\" -c \"include.path=$HOME/.gitconfig\""
+		alias gsudo='sudo git -c "include.path=''${XDG_CONFIG_DIR:-$HOME/.config}/git/config" -c "include.path=$HOME/.gitconfig"'
+
+		if [[ ! -f ~/.ssh/id_ed25519 ]]; then
+			echo "SSH key not found. Generating a new one..."
+			ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
+		fi
 		'';
 	};
 	programs.zoxide = {
