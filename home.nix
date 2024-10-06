@@ -47,6 +47,7 @@
 		jq
 		zoxide
 		eza
+		hut
 
 		mpv
 		ani-cli
@@ -88,6 +89,14 @@
 			enable = true;
 			userName = "Slendi";
 			userEmail = "slendi@socopon.com";
+			extraConfig = {
+				gpg = {
+					format = "ssh";
+				};
+				user = {
+					signingkey = "~/.ssh/id_ed25519.pub";
+				};
+			};
 		};
 
 		kitty = {

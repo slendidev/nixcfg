@@ -11,6 +11,7 @@
 		
 		zen-browser.url = "github:ch4og/zen-browser-flake";
 		polymc.url = "github:PolyMC/PolyMC";
+		glslcc-flake.url = "github:xslendix/glslcc-flake";
 	};
 
 	outputs = { self, nixpkgs, home-manager, ... }@inputs : {

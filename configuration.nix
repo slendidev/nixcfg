@@ -9,6 +9,9 @@
 			./gpu.nix
 		];
 
+	hardware.bluetooth.enable = true;
+	hardware.bluetooth.powerOnBoot = true;
+
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 	nix.gc = {
@@ -49,6 +52,7 @@
 	];
 
 	services.lorri.enable = true;
+	services.blueman.enable = true;
 
 	services.pipewire = {
 		enable = true;
@@ -100,6 +104,8 @@
 		usbutils
 
 		inputs.zen-browser.packages.${pkgs.system}.default
+		inputs.glslcc-flake.packages.${pkgs.system}.default
+
 		wofi
 		wpaperd
 		hyprshot

@@ -14,7 +14,8 @@
 			"gc!" = "git commit --amend";
 			gcld = "git clone --depth 1 --recursive --shallow-submodules";
 			gcl = "git clone --recurse";
-			gl = "git log";
+			gl = "git pull --rebase";
+			glo = "git log";
 			gd = "git diff";
 			gds = "git diff --staged";
 			upd = "sudo nixos-rebuild switch";
