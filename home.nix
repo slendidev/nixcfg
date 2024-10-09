@@ -75,6 +75,7 @@
 		libreoffice
 		vesktop
 		polymc
+		renderdoc
 	];
 
 	home.file.".config/wpaperd/wallpaper.toml".text = ''
