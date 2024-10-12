@@ -1,10 +1,9 @@
 return {
 	{
 		"chrisgrieser/nvim-spider",
-		lazy = true,
 		setup = function()
 			require('spider').setup{
-				skipInsignificantPunctuation = false
+				skipInsignificantPunctuation = false,
 			}
 		end,
 		keys = {
