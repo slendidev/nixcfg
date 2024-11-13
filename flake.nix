@@ -3,6 +3,7 @@
 
 	inputs = {
 		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+		nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
 		home-manager = {
 			url = "github:nix-community/home-manager";
@@ -14,7 +15,7 @@
 		glslcc-flake.url = "github:xslendix/glslcc-flake";
 	};
 
-	outputs = { self, nixpkgs, home-manager, ... }@inputs : {
+	outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs : {
 		nixosConfigurations.navi = nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
 

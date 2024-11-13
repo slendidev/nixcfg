@@ -40,6 +40,10 @@
 
 	home.packages = with pkgs; [
 		direnv
+		steam
+		steamPackages.steamcmd
+
+		obs-studio
 
 		fastfetch
 

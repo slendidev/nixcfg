@@ -109,6 +109,10 @@
 		wofi
 		wpaperd
 		hyprshot
+		(let
+				inheritedNixpkgs = import inputs.nixpkgs-unstable { system = pkgs.system; };
+			in
+				inheritedNixpkgs.linux-wallpaperengine)
 
 		man-pages
 		man-pages-posix
