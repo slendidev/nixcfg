@@ -32,6 +32,7 @@
 			];
 		};
 		initExtra = ''
+		setopt AUTO_CD
 		bindkey -v
 		bindkey '^R' history-incremental-search-backward
 		source ~/.p10k.zsh

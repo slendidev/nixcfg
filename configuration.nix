@@ -2,7 +2,9 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }: {
+{ config, lib, pkgs, inputs, ... }:
+
+{
 	imports =
 		[ # Include the results of the hardware scan.
 			./hardware-configuration.nix
@@ -20,6 +22,7 @@
 		options = "--delete-older-than 30d";
 	};
 
+	nixpkgs.config.channel = "nixos-unstable";
 	nixpkgs.config.allowUnfree = true;
 	nixpkgs.config.allowUnfreePredicate = _: true;
 
@@ -72,7 +75,7 @@
 	nixpkgs.overlays = [
 		inputs.polymc.overlay
 	];
-
+	
 	environment.systemPackages = with pkgs; [
 		git
 		neovim
@@ -109,10 +112,6 @@
 		wofi
 		wpaperd
 		hyprshot
-		(let
-				inheritedNixpkgs = import inputs.nixpkgs-unstable { system = pkgs.system; };
-			in
-				inheritedNixpkgs.linux-wallpaperengine)
 
 		man-pages
 		man-pages-posix

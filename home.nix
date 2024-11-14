@@ -47,6 +47,8 @@
 
 		fastfetch
 
+		freecad
+
 		ripgrep
 		jq
 		zoxide
@@ -126,6 +128,9 @@
 		enable = true;
 		xwayland.enable = true;
 		extraConfig = builtins.readFile ./programs/hyprland.conf;
+		plugins = [
+			pkgs.hyprlandPlugins.hyprexpo
+		];
 	};
 
 	home.stateVersion = "24.05";
