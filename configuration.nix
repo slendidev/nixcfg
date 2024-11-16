@@ -25,6 +25,7 @@
 	nixpkgs.config.channel = "nixos-unstable";
 	nixpkgs.config.allowUnfree = true;
 	nixpkgs.config.allowUnfreePredicate = _: true;
+	nixpkgs.config.cudaSupport = true;
 
 	boot.loader.systemd-boot.enable = true;
 	boot.loader.efi.canTouchEfiVariables = true;
@@ -47,6 +48,15 @@
 	programs.hyprland.enable = true;
 	programs.hyprland.xwayland.enable = true;
 	programs.hyprland.systemd.setPath.enable = true;
+
+	programs.steam = {
+		enable = true;
+		gamescopeSession.enable = true;
+		extest.enable = true;
+		extraCompatPackages = with pkgs; [
+			proton-ge-bin
+		];
+	};
 
 	services.printing.enable = true;
 	services.printing.drivers = with pkgs; [
@@ -113,8 +123,17 @@
 		wpaperd
 		hyprshot
 
+		freecad
+
 		man-pages
 		man-pages-posix
+
+		wineWowPackages.stable
+		wine
+		(wine.override { wineBuild = "wine64"; })
+		wine64
+		wineWowPackages.staging
+		winetricks
 	];
 
 	documentation.dev.enable = true;

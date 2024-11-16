@@ -1,4 +1,5 @@
-{ config, pkgs, ... } : {
+{ config, pkgs, ... } :
+{
 	home.username = "lain";
 	home.homeDirectory = "/home/lain";
 
@@ -40,14 +41,11 @@
 
 	home.packages = with pkgs; [
 		direnv
-		steam
 		steamPackages.steamcmd
 
 		obs-studio
 
 		fastfetch
-
-		freecad
 
 		ripgrep
 		jq
@@ -67,6 +65,7 @@
 		wl-clipboard
 		playerctl
 		pamixer
+		cli-visualizer
 
 		easyeffects
 		pavucontrol
@@ -122,6 +121,7 @@
 	imports = [
 		./programs/neovim
 		./programs/zsh.nix
+		./programs/cli-visualizer.nix
 	];
 
 	wayland.windowManager.hyprland = {
