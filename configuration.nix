@@ -14,7 +14,10 @@
 	hardware.bluetooth.enable = true;
 	hardware.bluetooth.powerOnBoot = true;
 
-	nix.settings.experimental-features = [ "nix-command" "flakes" ];
+	nix.settings = {
+		max-jobs = 28;
+		experimental-features = [ "nix-command" "flakes" ];
+	};
 
 	nix.gc = {
 		automatic = true;
