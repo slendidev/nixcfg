@@ -31,6 +31,8 @@
 	boot.loader.efi.canTouchEfiVariables = true;
 
 	boot.blacklistedKernelModules = [ "nouveau" ];
+	boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
+	boot.kernel.sysctl."kernel.sysrq" = 1;
 
 	networking.hostName = "navi"; # Define your hostname.
 	networking.networkmanager.enable = true;
@@ -58,6 +60,8 @@
 		];
 	};
 
+	programs.kdeconnect.enable = true;
+
 	services.printing.enable = true;
 	services.printing.drivers = with pkgs; [
 		hplip
@@ -75,10 +79,14 @@
 	# Enable touchpad support (enabled default in most desktopManager).
 	services.libinput.enable = true;
 
+	services.devmon.enable = true;
+	services.gvfs.enable = true; 
+	services.udisks2.enable = true;
+
 	programs.zsh.enable = true;
 	users.users.lain = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "input" ];
+		extraGroups = [ "wheel" "input" "dialout" ];
 		shell = pkgs.zsh;
 	};
 
@@ -87,6 +95,8 @@
 	];
 	
 	environment.systemPackages = with pkgs; [
+		udiskie
+
 		git
 		neovim
 		curl
@@ -122,8 +132,6 @@
 		wofi
 		wpaperd
 		hyprshot
-
-		freecad
 
 		man-pages
 		man-pages-posix

@@ -40,10 +40,18 @@
 	};
 
 	home.packages = with pkgs; [
+		(pkgs.python312.withPackages (ppkgs: [
+			ppkgs.numpy
+			ppkgs.ipython
+			ppkgs.pyzmq
+		]))
+		manim
+
 		direnv
-		steamPackages.steamcmd
+		steamcmd
 
 		obs-studio
+		freecad
 
 		fastfetch
 
@@ -52,9 +60,14 @@
 		zoxide
 		eza
 		hut
+		calc
 
 		mpv
 		ani-cli
+		yt-dlp
+
+		ffmpeg
+		audacity
 
 		clang-tools
 		gf

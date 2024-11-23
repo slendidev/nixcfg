@@ -1,25 +1,10 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
 	programs.zsh = {
 		enable = true;
 		enableCompletion = true;
 		autosuggestion.enable = true;
 		syntaxHighlighting.enable = true;
 
-		shellAliases = {
-			cd = "z";
-			ls = "eza";
-			ll = "eza -l";
-			gc = "git commit -svS";
-			gs = "git status";
-			"gc!" = "git commit --amend";
-			gcld = "git clone --depth 1 --recursive --shallow-submodules";
-			gcl = "git clone --recurse";
-			gl = "git pull --rebase";
-			glo = "git log";
-			gd = "git diff";
-			gds = "git diff --staged";
-			upd = "sudo nixos-rebuild switch";
-		};
 		history = {
 			size = 10000;
 			path = "${config.xdg.dataHome}/zsh/history";
@@ -38,6 +23,22 @@
 		source ~/.p10k.zsh
 		eval "$(direnv hook zsh)"
 
+		alias cd="z"
+		alias ls="eza"
+		alias ll="eza -l"
+		alias gc="git commit -svS"
+		alias ga="git add"
+		alias gs="git status"
+		alias "gc!"="git commit --amend"
+		alias gcld="git clone --depth 1 --recursive --shallow-submodules"
+		alias gcl="git clone --recurse --shallow-submodules"
+		alias gl="git pull --rebase"
+		alias glo="git log"
+		alias gd="git diff"
+		alias gds="git diff --staged"
+		alias upd="sudo nixos-rebuild switch"
+		alias ns="nix-shell --command zsh"
+
 		export LESS_TERMCAP_mb=$'\e[1;32m'
 		export LESS_TERMCAP_md=$'\e[1;32m'
 		export LESS_TERMCAP_me=$'\e[0m'
@@ -45,6 +46,8 @@
 		export LESS_TERMCAP_so=$'\e[01;33m'
 		export LESS_TERMCAP_ue=$'\e[0m'
 		export LESS_TERMCAP_us=$'\e[1;4;31m'
+
+		export LD_LIBRARY_PATH=${pkgs.libGL}/lib/
 
 		alias gsudo='sudo git -c "include.path=''${XDG_CONFIG_DIR:-$HOME/.config}/git/config" -c "include.path=$HOME/.gitconfig"'
 
