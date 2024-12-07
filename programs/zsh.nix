@@ -27,6 +27,8 @@
 		alias ls="eza"
 		alias ll="eza -l"
 		alias gc="git commit -svS"
+		alias gp="git push"
+		alias gpf="git push --force-with-lease"
 		alias ga="git add"
 		alias gs="git status"
 		alias "gc!"="git commit --amend"
@@ -48,6 +50,10 @@
 		export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 		export LD_LIBRARY_PATH=${pkgs.libGL}/lib/
+
+		export QT_IM_MODULE=fcitx
+		export XMODIFIERS=@im=fcitx
+		export GTK_IM_MODULE=fcitx
 
 		alias gsudo='sudo git -c "include.path=''${XDG_CONFIG_DIR:-$HOME/.config}/git/config" -c "include.path=$HOME/.gitconfig"'
 

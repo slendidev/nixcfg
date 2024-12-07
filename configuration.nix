@@ -11,6 +11,7 @@
 			./gpu.nix
 		];
 
+	hardware.nvidia-container-toolkit.enable = true;
 	hardware.bluetooth.enable = true;
 	hardware.bluetooth.powerOnBoot = true;
 
@@ -37,6 +38,8 @@
 	boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
 	boot.kernel.sysctl."kernel.sysrq" = 1;
 
+	boot.supportedFilesystems = [ "ntfs" ];
+
 	networking.hostName = "navi"; # Define your hostname.
 	networking.networkmanager.enable = true;
 
@@ -44,6 +47,15 @@
 
 	# Select internationalisation properties.
 	i18n.defaultLocale = "en_US.UTF-8";
+	i18n.inputMethod = {
+		enabled = "fcitx5";
+		fcitx5.waylandFrontend = true;
+		fcitx5.addons = with pkgs; [
+			fcitx5-anthy
+			fcitx5-gtk
+		];
+	};
+
 	# console = {
 	#	 font = "Lat2-Terminus16";
 	#	 keyMap = "us";
@@ -71,6 +83,14 @@
 		hplipWithPlugin
 	];
 
+	services.openssh = {
+		enable = true;
+		ports = [ 22 ];
+		settings = {
+			PermitRootLogin = "prohibit-password";
+		};
+	};
+
 	services.lorri.enable = true;
 	services.blueman.enable = true;
 
@@ -87,9 +107,14 @@
 	services.udisks2.enable = true;
 
 	programs.zsh.enable = true;
+	programs.tmux = {
+		enable = true;
+		keyMode = "vi";
+	};
+
 	users.users.lain = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "input" "dialout" ];
+		extraGroups = [ "wheel" "input" "dialout" "docker" ];
 		shell = pkgs.zsh;
 	};
 
@@ -98,6 +123,9 @@
 	];
 	
 	environment.systemPackages = with pkgs; [
+		distrobox
+		nvidia-container-toolkit
+
 		udiskie
 
 		git
@@ -149,13 +177,17 @@
 
 	documentation.dev.enable = true;
 
-	environment.variables.EDITOR = "nvim";
+	environment.variables = {
+		EDITOR = "nvim";
+		IBUS_ENABLE_SYNC_MODE = "1";
+	};
 
 	networking.firewall.enable = true;
 	networking.firewall.allowedTCPPorts = [ ];
 	networking.firewall.allowedUDPPorts = [ ];
 
 	virtualisation.waydroid.enable = true;
+	virtualisation.docker.enable = true;
 
 	# Copy the NixOS configuration file and link it from the resulting system
 	# (/run/current-system/configuration.nix). This is useful in case you

@@ -49,6 +49,8 @@
 
 		direnv
 		steamcmd
+		ryujinx
+		gzdoom
 
 		obs-studio
 		freecad
@@ -82,6 +84,7 @@
 
 		easyeffects
 		pavucontrol
+		helvum
 		nautilus
 		nautilus-python
 		sushi
