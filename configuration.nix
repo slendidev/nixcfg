@@ -35,6 +35,7 @@
 	boot.loader.efi.canTouchEfiVariables = true;
 
 	boot.blacklistedKernelModules = [ "nouveau" ];
+	boot.initrd.kernelModules = [ "btusb" ];
 	boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
 	boot.kernel.sysctl."kernel.sysrq" = 1;
 
@@ -110,11 +111,14 @@
 	programs.tmux = {
 		enable = true;
 		keyMode = "vi";
+		extraConfig = ''
+set -g default-terminal "screen-256color"
+'';
 	};
 
 	users.users.lain = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "input" "dialout" "docker" ];
+		extraGroups = [ "wheel" "input" "dialout" "docker" "audio" ];
 		shell = pkgs.zsh;
 	};
 
@@ -173,6 +177,17 @@
 		wine64
 		wineWowPackages.staging
 		winetricks
+	];
+
+	fonts.packages = with pkgs; [
+		noto-fonts
+		noto-fonts-cjk-sans
+		noto-fonts-emoji
+		liberation_ttf
+		fira-code
+		fira-code-symbols
+		dina-font
+		proggyfonts
 	];
 
 	documentation.dev.enable = true;

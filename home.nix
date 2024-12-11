@@ -46,6 +46,8 @@
 			ppkgs.pyzmq
 		]))
 		manim
+		unityhub
+		openseeface
 
 		direnv
 		steamcmd
@@ -53,7 +55,16 @@
 		gzdoom
 
 		obs-studio
-		freecad
+
+		#ardour
+		#surge
+		#vital
+		#helm
+		#calf
+		#noise-repellent
+		#drumgizmo
+		#bespokesynth
+		#yabridge
 
 		fastfetch
 
@@ -67,6 +78,8 @@
 		mpv
 		ani-cli
 		yt-dlp
+
+		zathura
 
 		ffmpeg
 		audacity
@@ -93,9 +106,7 @@
 		nextcloud-client
 		keepassxc
 		inkscape
-		libreoffice
 		vesktop
-		polymc
 		renderdoc
 	];
 
@@ -130,6 +141,7 @@
 			pointer_shape_when_dragging arrow
 			confirm_os_window_close 0
 			window_padding_width 4
+			map ctrl+shift+k clear_terminal scrollback
 			'';
 		};
 	};
