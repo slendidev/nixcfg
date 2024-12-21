@@ -3,6 +3,16 @@
 	home.username = "lain";
 	home.homeDirectory = "/home/lain";
 
+	i18n.inputMethod = {
+		enabled = "fcitx5";
+		#fcitx5.waylandFrontend = true;
+		fcitx5.addons = with pkgs; [
+			fcitx5-rime
+			fcitx5-gtk
+			fcitx5-material-color
+		];
+	};
+
 	home.pointerCursor =
 		let
 			getFrom = url: hash: name: {
@@ -44,6 +54,7 @@
 			ppkgs.numpy
 			ppkgs.ipython
 			ppkgs.pyzmq
+			ppkgs.pyserial
 		]))
 		manim
 		unityhub
@@ -53,10 +64,15 @@
 		steamcmd
 		ryujinx
 		gzdoom
+		tinycc
 
-		obs-studio
+		monero-gui
+		tor-browser-bundle-bin
 
-		#ardour
+		libreoffice
+		qbittorrent
+
+		#lmms
 		#surge
 		#vital
 		#helm
@@ -81,9 +97,12 @@
 
 		zathura
 
+		handbrake
 		ffmpeg
 		audacity
+		(pkgs.wrapOBS { plugins = [ pkgs.obs-studio-plugins.obs-vkcapture ]; })
 
+		arduino-cli
 		clang-tools
 		gf
 

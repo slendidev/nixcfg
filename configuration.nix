@@ -20,6 +20,11 @@
 		experimental-features = [ "nix-command" "flakes" ];
 	};
 
+	xdg.portal = {
+		enable = true;
+		wlr.enable = true;
+	};
+
 	nix.gc = {
 		automatic = true;
 		dates = "weekly";
@@ -40,23 +45,22 @@
 	boot.kernel.sysctl."kernel.sysrq" = 1;
 
 	boot.supportedFilesystems = [ "ntfs" ];
+	boot.kernelModules = [ "v4l2loopback" ];
+	boot.extraModulePackages = [
+		config.boot.kernelPackages.v4l2loopback
+	];
 
 	networking.hostName = "navi"; # Define your hostname.
 	networking.networkmanager.enable = true;
 
 	time.timeZone = "Europe/Bucharest";
 
+	programs.virt-manager.enable = true;
+	virtualisation.libvirtd.enable = true;
+	virtualisation.spiceUSBRedirection.enable = true;
+
 	# Select internationalisation properties.
 	i18n.defaultLocale = "en_US.UTF-8";
-	i18n.inputMethod = {
-		enabled = "fcitx5";
-		fcitx5.waylandFrontend = true;
-		fcitx5.addons = with pkgs; [
-			fcitx5-anthy
-			fcitx5-gtk
-		];
-	};
-
 	# console = {
 	#	 font = "Lat2-Terminus16";
 	#	 keyMap = "us";
@@ -118,7 +122,7 @@ set -g default-terminal "screen-256color"
 
 	users.users.lain = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "input" "dialout" "docker" "audio" ];
+		extraGroups = [ "wheel" "input" "dialout" "docker" "audio" "libvirtd" ];
 		shell = pkgs.zsh;
 	};
 
