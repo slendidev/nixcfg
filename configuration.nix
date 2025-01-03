@@ -9,6 +9,7 @@
 		[ # Include the results of the hardware scan.
 			./hardware-configuration.nix
 			./gpu.nix
+			./cachix.nix
 		];
 
 	hardware.nvidia-container-toolkit.enable = true;
@@ -16,7 +17,8 @@
 	hardware.bluetooth.powerOnBoot = true;
 
 	nix.settings = {
-		max-jobs = 28;
+		max-jobs = 2;
+		cores = 14;
 		experimental-features = [ "nix-command" "flakes" ];
 	};
 
@@ -82,6 +84,13 @@
 
 	programs.kdeconnect.enable = true;
 
+	services.avahi = {
+		publish = {
+			enable = true;
+			userServices = true;
+		};
+		enable = true;
+	};
 	services.printing.enable = true;
 	services.printing.drivers = with pkgs; [
 		hplip
@@ -133,6 +142,9 @@ set -g default-terminal "screen-256color"
 	environment.systemPackages = with pkgs; [
 		distrobox
 		nvidia-container-toolkit
+		cachix
+
+		shairport-sync
 
 		udiskie
 
@@ -168,6 +180,9 @@ set -g default-terminal "screen-256color"
 		inputs.zen-browser.packages.${pkgs.system}.default
 		inputs.glslcc-flake.packages.${pkgs.system}.default
 
+		inputs.hyprland-qtutils.packages.${pkgs.system}.default
+		kdePackages.qqc2-desktop-style
+
 		wofi
 		wpaperd
 		hyprshot
@@ -201,9 +216,11 @@ set -g default-terminal "screen-256color"
 		IBUS_ENABLE_SYNC_MODE = "1";
 	};
 
-	networking.firewall.enable = true;
-	networking.firewall.allowedTCPPorts = [ ];
-	networking.firewall.allowedUDPPorts = [ ];
+	networking.firewall = {
+		enable = false;
+		#allowedTCPPorts = [ 3689 5000 7000 ] ++ (builtins.genList (x: 32768 + x) (60999 - 32768 + 1));
+		#allowedUDPPorts = [ 319 320 5353 6000 6001 6002 6003 6004 6005 6006 6007 6008 6009 ] ++ (builtins.genList (x: 32768 + x) (60999 - 32768 + 1));
+	};
 
 	virtualisation.waydroid.enable = true;
 	virtualisation.docker.enable = true;

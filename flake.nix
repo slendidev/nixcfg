@@ -12,6 +12,7 @@
 		zen-browser.url = "github:ch4og/zen-browser-flake";
 		polymc.url = "github:PolyMC/PolyMC";
 		glslcc-flake.url = "github:xslendix/glslcc-flake";
+		hyprland-qtutils.url = "github:hyprwm/hyprland-qtutils";
 	};
 
 	outputs = { self, nixpkgs, home-manager, ... }@inputs : {
