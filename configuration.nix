@@ -69,6 +69,8 @@
 	#	 useXkbConfig = true; # use xkb.options in tty.
 	# };
 
+	programs.cfs-zen-tweaks.enable = true;
+
 	programs.hyprland.enable = true;
 	programs.hyprland.xwayland.enable = true;
 	programs.hyprland.systemd.setPath.enable = true;
