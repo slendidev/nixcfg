@@ -36,6 +36,7 @@ visualizer.spectrum.character=#
 visualizer.spectrum.bar.width=1
 visualizer.spectrum.bar.spacing=0
 colors.scheme=rainbow
+visualizer.spectrum.falloff.weight=1.1
 '';
 }
 

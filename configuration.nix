@@ -146,6 +146,9 @@ set -g default-terminal "screen-256color"
 		nvidia-container-toolkit
 		cachix
 
+		libnotify
+		hyprnotify
+
 		shairport-sync
 
 		udiskie

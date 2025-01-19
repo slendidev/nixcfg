@@ -49,6 +49,13 @@
 		};
 	};
 
+	programs.mpv = {
+		enable = true;
+		scripts = [
+			pkgs.mpvScripts.mpris
+		];
+	};
+
 	home.packages = with pkgs; [
 		(pkgs.python312.withPackages (ppkgs: [
 			ppkgs.numpy
@@ -91,7 +98,6 @@
 		hut
 		calc
 
-		mpv
 		ani-cli
 		yt-dlp
 
