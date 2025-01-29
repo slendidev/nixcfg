@@ -41,6 +41,7 @@
 		alias gds="git diff --staged"
 		alias upd="sudo nixos-rebuild switch"
 		alias ns="nix-shell --command zsh"
+		alias grep="rg"
 
 		export LESS_TERMCAP_mb=$'\e[1;32m'
 		export LESS_TERMCAP_md=$'\e[1;32m'

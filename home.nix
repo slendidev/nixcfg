@@ -132,15 +132,25 @@
 		keepassxc
 		inkscape
 		vesktop
-		renderdoc
+
+		(let
+			renderdocWithWayland = renderdoc.overrideAttrs (oldAttrs: {
+				waylandSupport = true;
+			});
+		in
+			renderdocWithWayland)
 	];
 
+	home.file.".config/nixpkgs/config.nix".text = ''
+{
+	allowUnfree = true;
+}'';
+
 	home.file.".config/wpaperd/wallpaper.toml".text = ''
-	[default]
-	path = "${config.home.homeDirectory}/Pictures/Wallpapers"
-	sorting = "random"
-	mode = "center"
-	'';
+[default]
+path = "${config.home.homeDirectory}/Pictures/Wallpapers"
+sorting = "random"
+mode = "center"'';
 
 	programs = {
 		git = {
@@ -181,9 +191,6 @@
 		enable = true;
 		xwayland.enable = true;
 		extraConfig = builtins.readFile ./programs/hyprland.conf;
-		plugins = [
-			pkgs.hyprlandPlugins.hyprexpo
-		];
 	};
 
 	home.stateVersion = "24.05";

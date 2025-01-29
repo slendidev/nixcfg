@@ -13,9 +13,13 @@
 		polymc.url = "github:PolyMC/PolyMC";
 		glslcc-flake.url = "github:xslendix/glslcc-flake";
 		hyprland-qtutils.url = "github:hyprwm/hyprland-qtutils";
+		hyprpolkitagent = {
+      url = "github:hyprwm/hyprpolkitagent";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 	};
 
-	outputs = { self, nixpkgs, home-manager, ... }@inputs : {
+	outputs = { self, nixpkgs, home-manager, hyprpolkitagent, ... }@inputs : {
 		nixosConfigurations.navi = nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
 

@@ -38,6 +38,8 @@
 	nixpkgs.config.allowUnfreePredicate = _: true;
 	nixpkgs.config.cudaSupport = true;
 
+	virtualisation.vmware.host.enable = true;
+
 	boot.loader.systemd-boot.enable = true;
 	boot.loader.efi.canTouchEfiVariables = true;
 
@@ -59,6 +61,7 @@
 
 	programs.virt-manager.enable = true;
 	virtualisation.libvirtd.enable = true;
+	virtualisation.libvirtd.qemu.swtpm.enable = true;
 	virtualisation.spiceUSBRedirection.enable = true;
 
 	# Select internationalisation properties.
@@ -142,6 +145,10 @@ set -g default-terminal "screen-256color"
 	];
 	
 	environment.systemPackages = with pkgs; [
+		qemu
+		quickemu
+		swtpm
+
 		distrobox
 		nvidia-container-toolkit
 		cachix
@@ -186,6 +193,7 @@ set -g default-terminal "screen-256color"
 		inputs.glslcc-flake.packages.${pkgs.system}.default
 
 		inputs.hyprland-qtutils.packages.${pkgs.system}.default
+		inputs.hyprpolkitagent.packages.${pkgs.system}.default
 		kdePackages.qqc2-desktop-style
 
 		wofi
