@@ -39,10 +39,9 @@ in
 	home.packages = with pkgs; [
 		ripgrep
 		fzf
+		nil
 
-		ols
 		lua-language-server
-		rust-analyzer-unwrapped
 	];
 
 	programs.neovim = {

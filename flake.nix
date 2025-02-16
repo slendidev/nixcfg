@@ -17,9 +17,10 @@
       url = "github:hyprwm/hyprpolkitagent";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+		nixgl.url = "github:nix-community/nixGL";
 	};
 
-	outputs = { self, nixpkgs, home-manager, hyprpolkitagent, ... }@inputs : {
+	outputs = { self, nixpkgs, home-manager, hyprpolkitagent, nixgl, ... }@inputs : {
 		nixosConfigurations.navi = nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
 

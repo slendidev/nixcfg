@@ -1,7 +1,47 @@
 return {
 	{
 		'neovim/nvim-lspconfig',
+		dependencies = {
+			'saghen/blink.cmp',
+			dependencies = 'rafamadriz/friendly-snippets',
+			version = '*',
+			opts = {
+				keymap = {
+					preset = 'default',
+
+					['<Up>'] = { 'fallback' },
+					['<Down>'] = { 'fallback' },
+
+					['<Tab>'] = { 'select_next', 'fallback' },
+					['<S-Tab>'] = { 'select_prev', 'fallback' },
+
+					['<C-j>'] = { 'select_next', 'fallback' },
+					['<C-k>'] = { 'select_prev', 'fallback' },
+
+					['<C-Enter>'] = { 'accept', 'fallback' },
+				},
+
+				appearance = {
+					use_nvim_cmp_as_default = true,
+					nerd_font_variant = 'mono'
+				},
+
+				sources = {
+					default = { 'lsp', 'path', 'snippets', 'buffer' },
+				},
+
+				fuzzy = {
+					prebuilt_binaries = {
+						download = true,
+						force_version='v0.11.0',
+					},
+				}
+			},
+			opts_extend = { "sources.default" }
+		},
 		config = function()
+			local blink = require'blink.cmp'
+
 			vim.api.nvim_create_autocmd('BufWritePre', {
 				command = 'lua vim.lsp.buf.format()',
 				pattern = '*'
@@ -9,7 +49,7 @@ return {
 
 			local lspconfig = require 'lspconfig'
 			local function config(_config)
-				local cap = vim.lsp.protocol.make_client_capabilities()
+				local cap = blink.get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
 				return vim.tbl_deep_extend('force', {
 					completion = {
 						keyword_length = 0,
@@ -31,7 +71,7 @@ return {
 				}, _config or { })
 			end
 
-			local servers = { 'clangd', 'rust_analyzer', 'pyright', 'ts_ls', 'emmet_ls', 'eslint', 'gopls', 'ols', 'jdtls', 'zls', 'svelte', 'omnisharp', 'svls', 'hls' }
+			local servers = { 'clangd', 'rust_analyzer', 'pyright', 'ts_ls', 'emmet_ls', 'eslint', 'gopls', 'ols', 'jdtls', 'zls', 'svelte', 'omnisharp', 'svls', 'hls', 'fsautocomplete', 'nil_ls' }
 			for _, lsp in ipairs(servers) do
 				local conf = config()
 				if lsp == 'emmet_ls' then

@@ -40,8 +40,16 @@
 		alias gd="git diff"
 		alias gds="git diff --staged"
 		alias upd="sudo nixos-rebuild switch"
-		alias ns="nix-shell --command zsh"
 		alias grep="rg"
+
+		nix() {
+			if [[ $1 == "develop" ]]; then
+				shift
+				command nix develop -c $SHELL "$@"
+			else
+				command nix "$@"
+			fi
+		}
 
 		export LESS_TERMCAP_mb=$'\e[1;32m'
 		export LESS_TERMCAP_md=$'\e[1;32m'
@@ -51,11 +59,11 @@
 		export LESS_TERMCAP_ue=$'\e[0m'
 		export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-		export LD_LIBRARY_PATH=${pkgs.libGL}/lib/
+		export LD_LIBRARY_PATH="${pkgs.libGL}/lib/:$LD_LIBRARY_PATH"
+		export PATH="$HOME/.local/bin:$PATH"
 
 		export QT_IM_MODULE=fcitx
 		export XMODIFIERS=@im=fcitx
-		export GTK_IM_MODULE=fcitx
 
 		alias gsudo='sudo git -c "include.path=''${XDG_CONFIG_DIR:-$HOME/.config}/git/config" -c "include.path=$HOME/.gitconfig"'
 

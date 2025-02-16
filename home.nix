@@ -63,9 +63,9 @@
 			ppkgs.pyzmq
 			ppkgs.pyserial
 		]))
-		manim
 		unityhub
 		openseeface
+		lorien
 
 		direnv
 		steamcmd
@@ -132,6 +132,12 @@
 		keepassxc
 		inkscape
 		vesktop
+
+		prismlauncher
+
+		thunderbird
+
+		texliveFull
 
 		(let
 			renderdocWithWayland = renderdoc.overrideAttrs (oldAttrs: {

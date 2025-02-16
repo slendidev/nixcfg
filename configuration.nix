@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
 	imports =
@@ -56,6 +56,7 @@
 
 	networking.hostName = "navi"; # Define your hostname.
 	networking.networkmanager.enable = true;
+	networking.extraHosts = "0.0.0.0		master.binary.ninja";
 
 	time.timeZone = "Europe/Bucharest";
 
@@ -89,6 +90,10 @@
 
 	programs.kdeconnect.enable = true;
 
+	services.journald.extraConfig = ''
+		SystemMaxUse=2G
+	'';
+
 	services.avahi = {
 		publish = {
 			enable = true;
@@ -101,6 +106,15 @@
 		hplip
 		hplipWithPlugin
 	];
+
+	services.ollama = {
+		enable = true;
+		acceleration = "cuda";
+	};
+	services.open-webui = {
+		enable = true;
+		port = 8989;
+	};
 
 	services.openssh = {
 		enable = true;
@@ -142,12 +156,15 @@ set -g default-terminal "screen-256color"
 
 	nixpkgs.overlays = [
 		inputs.polymc.overlay
+		inputs.nixgl.overlay
 	];
 	
 	environment.systemPackages = with pkgs; [
 		qemu
 		quickemu
 		swtpm
+
+		gamemode
 
 		distrobox
 		nvidia-container-toolkit
@@ -199,6 +216,7 @@ set -g default-terminal "screen-256color"
 		wofi
 		wpaperd
 		hyprshot
+		open-vm-tools
 
 		man-pages
 		man-pages-posix
