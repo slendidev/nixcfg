@@ -67,6 +67,8 @@
 		openseeface
 		lorien
 
+		qpwgraph
+
 		direnv
 		steamcmd
 		ryujinx
@@ -106,7 +108,7 @@
 		handbrake
 		ffmpeg
 		audacity
-		(pkgs.wrapOBS { plugins = [ pkgs.obs-studio-plugins.obs-vkcapture ]; })
+		(pkgs.wrapOBS { plugins = [ pkgs.obs-studio-plugins.wlrobs pkgs.obs-studio-plugins.obs-vkcapture ]; })
 
 		arduino-cli
 		clang-tools
@@ -127,17 +129,21 @@
 		nautilus-python
 		sushi
 		nautilus-open-any-terminal
+		ffmpegthumbnailer
 
 		nextcloud-client
 		keepassxc
 		inkscape
-		vesktop
+		goofcord
 
 		prismlauncher
 
 		thunderbird
+		blender
 
 		texliveFull
+
+		kdePackages.xwaylandvideobridge
 
 		(let
 			renderdocWithWayland = renderdoc.overrideAttrs (oldAttrs: {

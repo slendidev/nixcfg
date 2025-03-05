@@ -29,9 +29,9 @@
 
 	nix.gc = {
 		automatic = true;
-		dates = "weekly";
 		options = "--delete-older-than 30d";
 	};
+	nix.optimise.automatic = true;
 
 	nixpkgs.config.channel = "nixos-unstable";
 	nixpkgs.config.allowUnfree = true;
@@ -107,6 +107,32 @@
 		hplipWithPlugin
 	];
 
+	services.samba = {
+		enable = true;
+		securityType = "user";
+		openFirewall = true;
+
+		shares = {
+			public = {
+				path           = "/home/public";
+				readOnly       = false;
+				browseable     = true;
+				guestOk        = true;
+				createMask     = "0644";
+				directoryMask  = "0755";
+			};
+		};
+
+		settings = {
+			global = {
+				"workgroup"    = "WORKGROUP";
+				"server string" = "mySambaServer";
+				"security"      = "user";
+				"map to guest"  = "Bad User";
+			};
+		};
+	};
+
 	services.ollama = {
 		enable = true;
 		acceleration = "cuda";
@@ -124,12 +150,18 @@
 		};
 	};
 
+	programs.adb.enable = true;
+	services.udev.packages = [
+		pkgs.android-udev-rules
+	];
+
 	services.lorri.enable = true;
 	services.blueman.enable = true;
 
 	services.pipewire = {
 		enable = true;
 		pulse.enable = true;
+		jack.enable = true;
 	};
 
 	# Enable touchpad support (enabled default in most desktopManager).
@@ -150,7 +182,7 @@ set -g default-terminal "screen-256color"
 
 	users.users.lain = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "input" "dialout" "docker" "audio" "libvirtd" ];
+		extraGroups = [ "wheel" "input" "dialout" "docker" "audio" "libvirtd" "adbusers" ];
 		shell = pkgs.zsh;
 	};
 

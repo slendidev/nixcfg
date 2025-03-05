@@ -41,6 +41,8 @@
 		alias gds="git diff --staged"
 		alias upd="sudo nixos-rebuild switch"
 		alias grep="rg"
+		alias open="xdg-open"
+		alias s="kitten ssh"
 
 		nix() {
 			if [[ $1 == "develop" ]]; then
