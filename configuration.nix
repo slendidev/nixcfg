@@ -18,7 +18,9 @@
 
 	nix.settings = {
 		max-jobs = 2;
+		#max-jobs = 1;
 		cores = 14;
+		#cores = 8;
 		experimental-features = [ "nix-command" "flakes" ];
 	};
 
@@ -45,7 +47,7 @@
 
 	boot.blacklistedKernelModules = [ "nouveau" ];
 	boot.initrd.kernelModules = [ "btusb" ];
-	boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
+	boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 	boot.kernel.sysctl."kernel.sysrq" = 1;
 
 	boot.supportedFilesystems = [ "ntfs" ];
@@ -131,15 +133,6 @@
 				"map to guest"  = "Bad User";
 			};
 		};
-	};
-
-	services.ollama = {
-		enable = true;
-		acceleration = "cuda";
-	};
-	services.open-webui = {
-		enable = true;
-		port = 8989;
 	};
 
 	services.openssh = {
@@ -259,6 +252,8 @@ set -g default-terminal "screen-256color"
 		wine64
 		wineWowPackages.staging
 		winetricks
+
+		koboldcpp
 	];
 
 	fonts.packages = with pkgs; [
