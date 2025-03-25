@@ -199,6 +199,11 @@ mode = "center"'';
 		./programs/cli-visualizer.nix
 	];
 
+	services.swayosd = {
+		enable = true;
+		stylePath = ./programs/swayosd.css;
+	};
+
 	wayland.windowManager.hyprland = {
 		enable = true;
 		xwayland.enable = true;
