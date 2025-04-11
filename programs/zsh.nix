@@ -73,6 +73,9 @@
 			echo "SSH key not found. Generating a new one..."
 			ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
 		fi
+
+		autoload -Uz compinit && compinit
+		zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 		'';
 	};
 	programs.zoxide = {

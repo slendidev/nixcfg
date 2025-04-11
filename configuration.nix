@@ -40,7 +40,8 @@
 	nixpkgs.config.allowUnfreePredicate = _: true;
 	nixpkgs.config.cudaSupport = true;
 
-	virtualisation.vmware.host.enable = true;
+	# TODO: Re-enable when this issue is closed: https://github.com/NixOS/nixpkgs/issues/392841
+	# virtualisation.vmware.host.enable = true;
 
 	boot.loader.systemd-boot.enable = true;
 	boot.loader.efi.canTouchEfiVariables = true;
@@ -92,6 +93,11 @@
 
 	programs.kdeconnect.enable = true;
 
+	services.ollama = {
+		enable = true;
+		acceleration = "cuda";
+	};
+
 	services.journald.extraConfig = ''
 		SystemMaxUse=2G
 	'';
@@ -116,21 +122,21 @@
 
 		shares = {
 			public = {
-				path           = "/home/public";
-				readOnly       = false;
-				browseable     = true;
-				guestOk        = true;
-				createMask     = "0644";
-				directoryMask  = "0755";
+				path					 = "/home/public";
+				readOnly			 = false;
+				browseable		 = true;
+				guestOk				= true;
+				createMask		 = "0644";
+				directoryMask	= "0755";
 			};
 		};
 
 		settings = {
 			global = {
-				"workgroup"    = "WORKGROUP";
+				"workgroup"		= "WORKGROUP";
 				"server string" = "mySambaServer";
-				"security"      = "user";
-				"map to guest"  = "Bad User";
+				"security"			= "user";
+				"map to guest"	= "Bad User";
 			};
 		};
 	};
@@ -182,6 +188,34 @@ set -g default-terminal "screen-256color"
 	nixpkgs.overlays = [
 		inputs.polymc.overlay
 		inputs.nixgl.overlay
+		(
+			final: prev:
+			let
+				finalAttrs = final.vmware-workstation;
+				version = "17.6.1";
+				build = "24319023";
+				baseUrl = "https://web.archive.org/web/20241105192443if_/https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${version}/${build}/linux";
+				vmware-unpack-env = prev.buildFHSEnv {
+					pname = "vmware-unpack-env";
+					inherit version;
+					targetPkgs = pkgs: [ pkgs.zlib ];
+				};
+			in
+			{
+				vmware-workstation = prev.vmware-workstation.overrideAttrs {
+					src =
+						prev.fetchzip {
+							url = "${baseUrl}/core/VMware-Workstation-${version}-${build}.x86_64.bundle.tar";
+							hash = "sha256-VzfiIawBDz0f1w3eynivW41Pn4SqvYf/8o9q14hln4s=";
+							stripRoot = false;
+						}
+						+ "/VMware-Workstation-${version}-${build}.x86_64.bundle";
+					unpackPhase = ''
+						${vmware-unpack-env}/bin/vmware-unpack-env -c "sh ${finalAttrs.src} --extract unpacked"
+					'';
+				};
+			}
+		)
 	];
 	
 	environment.systemPackages = with pkgs; [
@@ -252,6 +286,8 @@ set -g default-terminal "screen-256color"
 		wine64
 		wineWowPackages.staging
 		winetricks
+
+		vmware-workstation
 
 		koboldcpp
 	];

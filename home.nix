@@ -73,7 +73,6 @@
 		steamcmd
 		ryujinx
 		gzdoom
-		tinycc
 
 		monero-gui
 		tor-browser-bundle-bin
@@ -99,6 +98,7 @@
 		eza
 		hut
 		calc
+		tokei
 
 		ani-cli
 		yt-dlp
@@ -111,7 +111,6 @@
 		(pkgs.wrapOBS { plugins = [ pkgs.obs-studio-plugins.wlrobs pkgs.obs-studio-plugins.obs-vkcapture ]; })
 
 		arduino-cli
-		clang-tools
 		gf
 
 		btop
@@ -140,6 +139,8 @@
 
 		thunderbird
 		blender
+		krita
+		kicad
 
 		texliveFull
 
@@ -189,6 +190,7 @@ mode = "center"'';
 			confirm_os_window_close 0
 			window_padding_width 4
 			map ctrl+shift+k clear_terminal scrollback
+			cursor_trail 3
 			'';
 		};
 	};
