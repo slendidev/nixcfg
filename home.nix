@@ -146,6 +146,9 @@
 
 		kdePackages.xwaylandvideobridge
 
+		qzdl
+		gzdoom
+
 		(let
 			renderdocWithWayland = renderdoc.overrideAttrs (oldAttrs: {
 				waylandSupport = true;

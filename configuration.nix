@@ -117,10 +117,9 @@
 
 	services.samba = {
 		enable = true;
-		securityType = "user";
 		openFirewall = true;
 
-		shares = {
+		settings = {
 			public = {
 				path					 = "/home/public";
 				readOnly			 = false;
@@ -129,9 +128,6 @@
 				createMask		 = "0644";
 				directoryMask	= "0755";
 			};
-		};
-
-		settings = {
 			global = {
 				"workgroup"		= "WORKGROUP";
 				"server string" = "mySambaServer";
