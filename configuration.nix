@@ -43,6 +43,12 @@
 	# TODO: Re-enable when this issue is closed: https://github.com/NixOS/nixpkgs/issues/392841
 	# virtualisation.vmware.host.enable = true;
 
+	boot.binfmt = {
+		emulatedSystems = [
+			"aarch64-linux"
+		];
+	};
+
 	boot.loader.systemd-boot.enable = true;
 	boot.loader.efi.canTouchEfiVariables = true;
 
@@ -177,7 +183,7 @@ set -g default-terminal "screen-256color"
 
 	users.users.lain = {
 		isNormalUser = true;
-		extraGroups = [ "wheel" "input" "dialout" "docker" "audio" "libvirtd" "adbusers" ];
+		extraGroups = [ "wheel" "input" "dialout" "docker" "audio" "libvirtd" "adbusers" "docker" ];
 		shell = pkgs.zsh;
 	};
 
@@ -314,6 +320,8 @@ set -g default-terminal "screen-256color"
 
 	virtualisation.waydroid.enable = true;
 	virtualisation.docker.enable = true;
+
+	services.postgresql.enable = true;
 
 	# Copy the NixOS configuration file and link it from the resulting system
 	# (/run/current-system/configuration.nix). This is useful in case you

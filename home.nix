@@ -1,4 +1,4 @@
-{ config, pkgs, ... } :
+{ config, pkgs, blast, system, ... } :
 {
 	home.username = "lain";
 	home.homeDirectory = "/home/lain";
@@ -73,6 +73,7 @@
 		steamcmd
 		ryujinx
 		gzdoom
+		r2modman
 
 		monero-gui
 		tor-browser-bundle-bin
@@ -149,6 +150,8 @@
 		qzdl
 		gzdoom
 
+		blast.packages."${system}".blast
+
 		(let
 			renderdocWithWayland = renderdoc.overrideAttrs (oldAttrs: {
 				waylandSupport = true;
@@ -194,6 +197,7 @@ mode = "center"'';
 			window_padding_width 4
 			map ctrl+shift+k clear_terminal scrollback
 			cursor_trail 3
+			map ctrl+shift+w none
 			'';
 		};
 	};
