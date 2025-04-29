@@ -7,16 +7,15 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1745965040,
+        "lastModified": 1745965706,
         "narHash": "sha256-rzXcOJcuLw4jd57ROFTG4jHSfvURPThvSWaGWkE+RlQ=",
         "owner": "Arete-Innovations",
         "repo": "blast",
-        "rev": "2948ea443838c56426fb504df53177c2abae5c10",
+        "rev": "da797d21a37de892a4b534fdb785c3cfbeca7b3a",
         "type": "github"
       },
       "original": {
         "owner": "Arete-Innovations",
-        "ref": "nix",
         "repo": "blast",
         "type": "github"
       }

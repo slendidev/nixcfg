@@ -18,7 +18,7 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		nixgl.url = "github:nix-community/nixGL";
-		blast.url = "github:Arete-Innovations/blast/nix";
+		blast.url = "github:Arete-Innovations/blast";
 	};
 
 	outputs = { self, nixpkgs, home-manager, hyprpolkitagent, nixgl, blast, ... }@inputs :
