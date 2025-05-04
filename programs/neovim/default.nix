@@ -55,7 +55,7 @@ in
 
 		plugins = [
 			treesitterWithGrammars
-			pkgs.vimPlugins.blink-cmp
+			#pkgs.vimPlugins.blink-cmp
 		];
 	};
 

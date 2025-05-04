@@ -2,7 +2,7 @@ return {
 	{
 		'neovim/nvim-lspconfig',
 		dependencies = {
-			'saghen/blink.cmp',
+			#'saghen/blink.cmp',
 			dependencies = 'rafamadriz/friendly-snippets',
 			version = '*',
 			opts = {
@@ -40,7 +40,7 @@ return {
 			opts_extend = { "sources.default" }
 		},
 		config = function()
-			local blink = require'blink.cmp'
+			#local blink = require'blink.cmp'
 
 			vim.api.nvim_create_autocmd('BufWritePre', {
 				command = 'lua vim.lsp.buf.format()',
@@ -49,7 +49,7 @@ return {
 
 			local lspconfig = require 'lspconfig'
 			local function config(_config)
-				local cap = blink.get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
+				#local cap = blink.get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
 				return vim.tbl_deep_extend('force', {
 					completion = {
 						keyword_length = 0,
