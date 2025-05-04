@@ -69,7 +69,7 @@ set -g default-terminal "screen-256color"
 		defaults = {
 			dock = {
 				autohide = true;
-				largesize = 32;
+				largesize = 64;
 				magnification = true;
 				show-recents = false;
 			};
@@ -86,6 +86,31 @@ set -g default-terminal "screen-256color"
 		keyboard = {
 			enableKeyMapping = true;
 			remapCapsLockToEscape = true;
+		};
+	};
+
+	services = {
+		yabai = {
+			enable = true;
+			config = {
+				"layout" = "bsp";
+
+				"top_padding"    = 16;
+				"bottom_padding" = 16;
+				"left_padding"   = 16;
+				"right_padding"  = 16;
+				"window_gap"     = 16;
+
+				"auto_balance" = true;
+
+				"mouse_modifier" = "alt";
+				"mouse_action1" = "move";
+				"mouse_action2" = "resize";
+			};
+			extraConfig = ''
+				yabai -m rule --add app="^Etterna$" manage=off
+				yabai -m rule --add app="^System Settings$" manage=off
+			'';
 		};
 	};
 

@@ -77,6 +77,13 @@ mode = "center"'';
 		./programs/cli-visualizer.nix
 	];
 
+	services = {
+		skhd = {
+			enable = true;
+			config = ./skhdrc;
+		};
+	};
+
 	programs.home-manager.enable = true;
 
 	home.stateVersion = "24.05";
