@@ -1,4 +1,10 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }:
+let
+	isDarwin = pkgs.stdenv.isDarwin;
+	isAarch64Darwin = isDarwin && pkgs.system == "aarch64-darwin";
+
+in
+{
 	programs.zsh = {
 		enable = true;
 		enableCompletion = true;
@@ -39,10 +45,12 @@
 		alias glo="git log"
 		alias gd="git diff"
 		alias gds="git diff --staged"
-		alias upd="sudo nixos-rebuild switch"
 		alias grep="rg"
-		alias open="xdg-open"
 		alias ssh="kitten ssh"
+
+		${lib.optionalString (!isDarwin) "alias open=\"xdg-open\""}
+		${lib.optionalString isDarwin "alias upd=\"darwin-rebuild switch\""}
+		${lib.optionalString (!isDarwin) "alias upd=\"sudo nixos-rebuild switch\""}
 
 		nix() {
 			if [[ $1 == "develop" ]]; then

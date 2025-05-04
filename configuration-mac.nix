@@ -62,6 +62,7 @@ set -g default-terminal "screen-256color"
 			"easy-move+resize"
 			"stats"
 			"raycast"
+			"chatgpt"
 		];
 	};
 
