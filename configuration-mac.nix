@@ -63,6 +63,7 @@ set -g default-terminal "screen-256color"
 			"stats"
 			"raycast"
 			"chatgpt"
+			"monero-wallet"
 		];
 	};
 

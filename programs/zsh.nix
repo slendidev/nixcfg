@@ -31,8 +31,8 @@ in
 		eval "$(direnv hook zsh)"
 
 		alias cd="z"
-		alias ls="eza"
-		alias ll="eza -l"
+		alias ls="eza --icons"
+		alias ll="eza -l --icons"
 		alias gc="git commit -svS"
 		alias gp="git push"
 		alias gpf="git push --force-with-lease"
