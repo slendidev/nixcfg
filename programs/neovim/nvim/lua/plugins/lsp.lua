@@ -2,45 +2,74 @@ return {
 	{
 		'neovim/nvim-lspconfig',
 		dependencies = {
-			#'saghen/blink.cmp',
+			--'saghen/blink.cmp',
+			'ms-jpq/coq_nvim',
 			dependencies = 'rafamadriz/friendly-snippets',
 			version = '*',
 			opts = {
-				keymap = {
-					preset = 'default',
-
-					['<Up>'] = { 'fallback' },
-					['<Down>'] = { 'fallback' },
-
-					['<Tab>'] = { 'select_next', 'fallback' },
-					['<S-Tab>'] = { 'select_prev', 'fallback' },
-
-					['<C-j>'] = { 'select_next', 'fallback' },
-					['<C-k>'] = { 'select_prev', 'fallback' },
-
-					['<C-Enter>'] = { 'accept', 'fallback' },
-				},
-
-				appearance = {
-					use_nvim_cmp_as_default = true,
-					nerd_font_variant = 'mono'
-				},
-
 				sources = {
 					default = { 'lsp', 'path', 'snippets', 'buffer' },
 				},
 
-				fuzzy = {
-					prebuilt_binaries = {
-						download = true,
-						force_version='v0.11.0',
-					},
-				}
+				config = function(_, opts)
+					vim.g.coq_settings = {
+						'keymap' = {
+							'recommended' = false
+						},
+						'auto_start' = v:true
+					}
+
+					local opts = { expr = true, silent = true }
+
+					-- exit to normal, even if menu open
+					vim.api.nvim_set_keymap('i', '<Esc>',
+						[[pumvisible() ? "\<C-e><Esc>" : "\<Esc>"]],
+						opts)
+
+					-- abort completion
+					vim.api.nvim_set_keymap('i', '<C-c>',
+						[[pumvisible() ? "\<C-e><C-c>" : "\<C-c>"]],
+						opts)
+
+					-- backspace always
+					vim.api.nvim_set_keymap('i', '<BS>',
+						[[pumvisible() ? "\<C-e><BS>"  : "\<BS>"]],
+						opts)
+
+					-- delete word before cursor
+					vim.api.nvim_set_keymap('i', '<C-w>',
+						[[pumvisible() ? "\<C-e><C-w>" : "\<C-w>"]],
+						opts)
+
+					-- delete all before cursor
+					vim.api.nvim_set_keymap('i', '<C-u>',
+						[[pumvisible() ? "\<C-e><C-u>" : "\<C-u>"]],
+						opts)
+
+					-- <CR> selects if menu open, else normal enter
+					vim.api.nvim_set_keymap('i', '<CR>',
+						[[pumvisible() 
+						and (vim.fn.complete_info().selected == -1 
+						and "\<C-e><CR>" 
+						or "\<C-y>") 
+						or "\<CR>"]],
+						opts)
+
+					-- tab/shift-tab to navigate menu
+					vim.api.nvim_set_keymap('i', '<Tab>',
+						[[pumvisible() ? "\<C-n>" : "\<Tab>"]],
+						opts)
+					vim.api.nvim_set_keymap('i', '<S-Tab>',
+						[[pumvisible() ? "\<C-p>" : "\<BS>"]],
+						opts)
+
+					require'coq'
+				end,
 			},
 			opts_extend = { "sources.default" }
 		},
 		config = function()
-			#local blink = require'blink.cmp'
+			local coq = require'coq'
 
 			vim.api.nvim_create_autocmd('BufWritePre', {
 				command = 'lua vim.lsp.buf.format()',
@@ -49,7 +78,7 @@ return {
 
 			local lspconfig = require 'lspconfig'
 			local function config(_config)
-				#local cap = blink.get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
+				local cap = coq.lsp_ensure_capabilities(vim.lsp.protocol.make_client_capabilities())
 				return vim.tbl_deep_extend('force', {
 					completion = {
 						keyword_length = 0,

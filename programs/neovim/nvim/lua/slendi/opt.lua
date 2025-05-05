@@ -1,4 +1,3 @@
-vim.api.nvim_buf_set_option(0, 'fileformat', 'unix')
 vim.api.nvim_exec([[
 	augroup VimFiletypeUnix
 	autocmd!
