@@ -67,6 +67,7 @@ set -g default-terminal "screen-256color"
 			"whatsapp"
 			"discord"
 			"karabiner-elements"
+			"skim"
 		];
 	};
 
