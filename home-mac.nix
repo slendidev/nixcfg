@@ -33,6 +33,7 @@
 {
 	allowUnfree = true;
 }'';
+	home.file."config/karabiner/karabiner.json".source = ./karabiner.json;
 
 	home.file.".config/wpaperd/wallpaper.toml".text = ''
 [default]

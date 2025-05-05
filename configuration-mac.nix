@@ -64,6 +64,9 @@ set -g default-terminal "screen-256color"
 			"raycast"
 			"chatgpt"
 			"monero-wallet"
+			"whatsapp"
+			"discord"
+			"karabiner-elements"
 		];
 	};
 
@@ -104,6 +107,7 @@ set -g default-terminal "screen-256color"
 				"window_gap"     = 16;
 
 				"auto_balance" = true;
+				"focus_follows_mouse" = "autofocus";
 
 				"mouse_modifier" = "alt";
 				"mouse_action1" = "move";
