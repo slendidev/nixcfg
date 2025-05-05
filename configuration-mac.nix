@@ -68,6 +68,8 @@ set -g default-terminal "screen-256color"
 			"discord"
 			"karabiner-elements"
 			"skim"
+			"keepassxc"
+			"reaper"
 		];
 	};
 

@@ -18,6 +18,8 @@
 		calc
 		tokei
 
+		weechat
+
 		ani-cli
 		yt-dlp
 
