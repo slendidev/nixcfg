@@ -84,9 +84,13 @@
 
 	programs.cfs-zen-tweaks.enable = true;
 
-	programs.hyprland.enable = true;
-	programs.hyprland.xwayland.enable = true;
-	programs.hyprland.systemd.setPath.enable = true;
+	programs.hyprland = {
+		enable = true;
+		package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+		portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+		xwayland.enable = true;
+		systemd.setPath.enable = true;
+	};
 
 	programs.steam = {
 		enable = true;
@@ -163,6 +167,13 @@
 		enable = true;
 		pulse.enable = true;
 		jack.enable = true;
+		extraConfig.pipewire = {
+			"10-quantum" = {
+				"context.properties" = {
+					"default.clock.min-quantum" = 512;
+				};
+			};
+		};
 	};
 
 	# Enable touchpad support (enabled default in most desktopManager).
@@ -234,8 +245,6 @@ set -g default-terminal "screen-256color"
 		libnotify
 		hyprnotify
 
-		shairport-sync
-
 		udiskie
 
 		git
@@ -289,9 +298,7 @@ set -g default-terminal "screen-256color"
 		wineWowPackages.staging
 		winetricks
 
-		vmware-workstation
-
-		koboldcpp
+		ed
 	];
 
 	fonts.packages = with pkgs; [

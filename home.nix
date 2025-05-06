@@ -135,6 +135,7 @@
 		keepassxc
 		inkscape
 		goofcord
+		weechat
 
 		prismlauncher
 

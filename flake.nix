@@ -21,6 +21,7 @@
 		};
 		nixgl.url = "github:nix-community/nixGL";
 		blast.url = "github:Arete-Innovations/blast";
+		hyprland.url = "github:hyprwm/Hyprland";
 	};
 
 	outputs = { self, nixpkgs, home-manager, hyprpolkitagent, nixgl, blast, nix-darwin, ... }@inputs :
