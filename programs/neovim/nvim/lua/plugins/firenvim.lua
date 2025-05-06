@@ -3,6 +3,6 @@ return {
 	lazy = not vim.g.started_by_firenvim,
 	module = false,
 	build = function()
-		vim.fn"firenvim#install"
+		vim.cmd"call firenvim#install(0)"
 	end,
 }

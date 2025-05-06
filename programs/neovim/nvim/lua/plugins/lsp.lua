@@ -13,10 +13,10 @@ return {
 
 				config = function(_, opts)
 					vim.g.coq_settings = {
-						'keymap' = {
-							'recommended' = false
+						keymap = {
+							recommended = false,
 						},
-						'auto_start' = v:true
+						auto_start = true,
 					}
 
 					local opts = { expr = true, silent = true }

@@ -70,6 +70,10 @@ set -g default-terminal "screen-256color"
 			"skim"
 			"keepassxc"
 			"reaper"
+			"coconutbattery"
+			"roblox"
+			"Kegworks-App/kegworks/kegworks"
+			"qbittorrent"
 		];
 	};
 
