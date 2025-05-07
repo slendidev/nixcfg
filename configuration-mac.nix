@@ -93,7 +93,7 @@ set -g default-terminal "screen-256color"
 			NSGlobalDomain = {
 				InitialKeyRepeat = 15;
 				KeyRepeat = 2;
-				ApplePressAndHoldEnabled = 0;
+				ApplePressAndHoldEnabled = false;
 			};
 		};
 		keyboard = {
