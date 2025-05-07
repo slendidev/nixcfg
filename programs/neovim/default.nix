@@ -53,8 +53,9 @@ in
 		defaultEditor = true;
 		coc.enable = false;
 
-		plugins = [
+		plugins = with pkgs; [
 			treesitterWithGrammars
+			vimPlugins.firenvim
 			#pkgs.vimPlugins.blink-cmp
 		];
 	};
