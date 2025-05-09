@@ -17,6 +17,8 @@
 		hut
 		calc
 		tokei
+		typst
+		tinymist
 
 		weechat
 

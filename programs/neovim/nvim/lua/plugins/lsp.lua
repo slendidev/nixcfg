@@ -6,67 +6,61 @@ return {
 			'ms-jpq/coq_nvim',
 			dependencies = 'rafamadriz/friendly-snippets',
 			version = '*',
-			opts = {
-				sources = {
-					default = { 'lsp', 'path', 'snippets', 'buffer' },
-				},
 
-				config = function(_, opts)
-					vim.g.coq_settings = {
-						keymap = {
-							recommended = false,
-						},
-						auto_start = true,
-					}
+			config = function(_, opts)
+				vim.g.coq_settings = {
+					keymap = {
+						recommended = false,
+					},
+					auto_start = true,
+				}
 
-					local opts = { expr = true, silent = true }
+				local opts = { expr = true, silent = true }
 
-					-- exit to normal, even if menu open
-					vim.api.nvim_set_keymap('i', '<Esc>',
-						[[pumvisible() ? "\<C-e><Esc>" : "\<Esc>"]],
-						opts)
+				-- exit to normal, even if menu open
+				vim.api.nvim_set_keymap('i', '<Esc>',
+					[[pumvisible() ? "\<C-e><Esc>" : "\<Esc>"]],
+					opts)
 
-					-- abort completion
-					vim.api.nvim_set_keymap('i', '<C-c>',
-						[[pumvisible() ? "\<C-e><C-c>" : "\<C-c>"]],
-						opts)
+				-- abort completion
+				vim.api.nvim_set_keymap('i', '<C-c>',
+					[[pumvisible() ? "\<C-e><C-c>" : "\<C-c>"]],
+					opts)
 
-					-- backspace always
-					vim.api.nvim_set_keymap('i', '<BS>',
-						[[pumvisible() ? "\<C-e><BS>"  : "\<BS>"]],
-						opts)
+				-- backspace always
+				vim.api.nvim_set_keymap('i', '<BS>',
+					[[pumvisible() ? "\<C-e><BS>"  : "\<BS>"]],
+					opts)
 
-					-- delete word before cursor
-					vim.api.nvim_set_keymap('i', '<C-w>',
-						[[pumvisible() ? "\<C-e><C-w>" : "\<C-w>"]],
-						opts)
+				-- delete word before cursor
+				vim.api.nvim_set_keymap('i', '<C-w>',
+					[[pumvisible() ? "\<C-e><C-w>" : "\<C-w>"]],
+					opts)
 
-					-- delete all before cursor
-					vim.api.nvim_set_keymap('i', '<C-u>',
-						[[pumvisible() ? "\<C-e><C-u>" : "\<C-u>"]],
-						opts)
+				-- delete all before cursor
+				vim.api.nvim_set_keymap('i', '<C-u>',
+					[[pumvisible() ? "\<C-e><C-u>" : "\<C-u>"]],
+					opts)
 
-					-- <CR> selects if menu open, else normal enter
-					vim.api.nvim_set_keymap('i', '<CR>',
-						[[pumvisible() 
-						and (vim.fn.complete_info().selected == -1 
-						and "\<C-e><CR>" 
-						or "\<C-y>") 
-						or "\<CR>"]],
-						opts)
+				-- <CR> selects if menu open, else normal enter
+				vim.api.nvim_set_keymap('i', '<CR>',
+					[[pumvisible() 
+					and (vim.fn.complete_info().selected == -1 
+					and "\<C-e><CR>" 
+					or "\<C-y>") 
+					or "\<CR>"]],
+					opts)
 
-					-- tab/shift-tab to navigate menu
-					vim.api.nvim_set_keymap('i', '<Tab>',
-						[[pumvisible() ? "\<C-n>" : "\<Tab>"]],
-						opts)
-					vim.api.nvim_set_keymap('i', '<S-Tab>',
-						[[pumvisible() ? "\<C-p>" : "\<BS>"]],
-						opts)
+				-- tab/shift-tab to navigate menu
+				vim.api.nvim_set_keymap('i', '<Tab>',
+					[[pumvisible() ? "\<C-n>" : "\<Tab>"]],
+					opts)
+				vim.api.nvim_set_keymap('i', '<S-Tab>',
+					[[pumvisible() ? "\<C-p>" : "\<BS>"]],
+					opts)
 
-					require'coq'
-				end,
-			},
-			opts_extend = { "sources.default" }
+				require'coq'
+			end,
 		},
 		config = function()
 			local coq = require'coq'
