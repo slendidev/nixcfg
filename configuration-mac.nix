@@ -76,6 +76,7 @@ set -g default-terminal "screen-256color"
 			"qbittorrent"
 			"datagrip"
 			"docker"
+			"krita"
 		];
 	};
 
@@ -117,7 +118,7 @@ set -g default-terminal "screen-256color"
 				"window_gap"     = 16;
 
 				"auto_balance" = true;
-				"focus_follows_mouse" = "autofocus";
+				#"focus_follows_mouse" = "autofocus";
 
 				"mouse_modifier" = "alt";
 				"mouse_action1" = "move";

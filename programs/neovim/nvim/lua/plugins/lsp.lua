@@ -43,7 +43,7 @@ return {
 					opts)
 
 				-- <CR> selects if menu open, else normal enter
-				vim.api.nvim_set_keymap('i', '<CR>',
+				vim.api.nvim_set_keymap('i', '<C-CR>',
 					[[pumvisible() 
 					and (vim.fn.complete_info().selected == -1 
 					and "\<C-e><CR>" 

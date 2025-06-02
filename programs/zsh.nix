@@ -47,6 +47,7 @@ in
 			alias gds="git diff --staged"
 			alias grep="rg"
 			alias ssh="kitten ssh"
+			alias x="chmod +x"
 
 			${lib.optionalString (!isDarwin) "alias open=\"xdg-open\""}
 			${lib.optionalString isDarwin "alias upd=\"darwin-rebuild switch\""}
