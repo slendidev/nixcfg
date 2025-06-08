@@ -15,10 +15,14 @@ return {
 				return vim.tbl_deep_extend('force', {
 					on_attach = function(client, buffer)
 						vim.bo[buffer].omnifunc = 'v:lua.vim.lsp.omnifunc'
-						vim.lsp.completion.enable(true, client.id, buffer, { autotrigger = true })
-						vim.keymap.set('i', '<C-j>', 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true, noremap = true, silent = true })
+						vim.lsp.completion.enable(true, client.id, buffer)
+
+						vim.keymap.set('i', '<C-j>', [[pumvisible() ? "\<C-n>" : luaeval("vim.lsp.completion.get()")]], {
+							expr = true,
+							noremap = true,
+							silent = true
+						})
 						vim.keymap.set('i', '<C-k>', 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true, silent = true })
-						vim.keymap.set('i', '<C-CR>', 'pumvisible() ? "\\<C-y>" : "\\<CR>"', { expr = true, noremap = true, silent = true })
 
 						vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, { silent = true })
 						vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, { silent = true })
