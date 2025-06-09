@@ -108,7 +108,6 @@
 
 		handbrake
 		ffmpeg
-		audacity
 		(pkgs.wrapOBS { plugins = [ pkgs.obs-studio-plugins.wlrobs pkgs.obs-studio-plugins.obs-vkcapture ]; })
 
 		arduino-cli
@@ -138,11 +137,12 @@
 		weechat
 
 		prismlauncher
+		bs-manager
+		zenity
 
 		thunderbird
 		blender
 		krita
-		kicad
 
 		texliveFull
 
@@ -150,6 +150,8 @@
 
 		qzdl
 		gzdoom
+
+		android-studio
 
 		blast.packages."${system}".blast
 

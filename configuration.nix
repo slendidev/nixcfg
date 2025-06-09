@@ -39,9 +39,10 @@
 	nixpkgs.config.allowUnfree = true;
 	nixpkgs.config.allowUnfreePredicate = _: true;
 	nixpkgs.config.cudaSupport = true;
+	nixpkgs.config.android_sdk.accept_license = true;
 
 	# TODO: Re-enable when this issue is closed: https://github.com/NixOS/nixpkgs/issues/392841
-	# virtualisation.vmware.host.enable = true;
+	virtualisation.vmware.host.enable = true;
 
 	boot.binfmt = {
 		emulatedSystems = [
@@ -103,9 +104,9 @@
 
 	programs.kdeconnect.enable = true;
 
-	services.ollama = {
+	programs.alvr = {
 		enable = true;
-		acceleration = "cuda";
+		openFirewall = true;
 	};
 
 	services.journald.extraConfig = ''
@@ -123,7 +124,10 @@
 	services.printing.drivers = with pkgs; [
 		hplip
 		hplipWithPlugin
+		foo2zjs
 	];
+	services.system-config-printer.enable = true;
+	programs.system-config-printer.enable = true;
 
 	services.samba = {
 		enable = true;
@@ -201,40 +205,13 @@ set -g default-terminal "screen-256color"
 	nixpkgs.overlays = [
 		inputs.polymc.overlay
 		inputs.nixgl.overlay
-		(
-			final: prev:
-			let
-				finalAttrs = final.vmware-workstation;
-				version = "17.6.1";
-				build = "24319023";
-				baseUrl = "https://web.archive.org/web/20241105192443if_/https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${version}/${build}/linux";
-				vmware-unpack-env = prev.buildFHSEnv {
-					pname = "vmware-unpack-env";
-					inherit version;
-					targetPkgs = pkgs: [ pkgs.zlib ];
-				};
-			in
-			{
-				vmware-workstation = prev.vmware-workstation.overrideAttrs {
-					src =
-						prev.fetchzip {
-							url = "${baseUrl}/core/VMware-Workstation-${version}-${build}.x86_64.bundle.tar";
-							hash = "sha256-VzfiIawBDz0f1w3eynivW41Pn4SqvYf/8o9q14hln4s=";
-							stripRoot = false;
-						}
-						+ "/VMware-Workstation-${version}-${build}.x86_64.bundle";
-					unpackPhase = ''
-						${vmware-unpack-env}/bin/vmware-unpack-env -c "sh ${finalAttrs.src} --extract unpacked"
-					'';
-				};
-			}
-		)
 	];
 	
 	environment.systemPackages = with pkgs; [
 		qemu
 		quickemu
 		swtpm
+		gnumake
 
 		gamemode
 
@@ -320,15 +297,21 @@ set -g default-terminal "screen-256color"
 	};
 
 	networking.firewall = {
-		enable = false;
-		#allowedTCPPorts = [ 3689 5000 7000 ] ++ (builtins.genList (x: 32768 + x) (60999 - 32768 + 1));
-		#allowedUDPPorts = [ 319 320 5353 6000 6001 6002 6003 6004 6005 6006 6007 6008 6009 ] ++ (builtins.genList (x: 32768 + x) (60999 - 32768 + 1));
+		enable = true;
+		allowedTCPPorts = [ 3689 5000 7000 ] ++ (builtins.genList (x: 32768 + x) (60999 - 32768 + 1));
+		allowedUDPPorts = [ 319 320 5353 6000 6001 6002 6003 6004 6005 6006 6007 6008 6009 ] ++ (builtins.genList (x: 32768 + x) (60999 - 32768 + 1));
 	};
 
 	virtualisation.waydroid.enable = true;
 	virtualisation.docker.enable = true;
 
 	services.postgresql.enable = true;
+
+	services.ollama = {
+		enable = true;
+		acceleration = "cuda";
+		openFirewall = true;
+	};
 
 	# Copy the NixOS configuration file and link it from the resulting system
 	# (/run/current-system/configuration.nix). This is useful in case you

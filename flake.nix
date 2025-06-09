@@ -2,7 +2,7 @@
 	description = "System NixOS flake configuration";
 
 	inputs = {
-		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 		nix-darwin.url = "github:nix-darwin/nix-darwin/master";
 		nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -40,7 +40,11 @@
 						home-manager.nixosModules.home-manager {
 							home-manager.useGlobalPkgs = true;
 							home-manager.useUserPackages = true;
-							home-manager.extraSpecialArgs = { inherit nixpkgs; inherit blast; inherit system; };
+							home-manager.extraSpecialArgs = {
+								inherit nixpkgs;
+								inherit blast;
+								inherit system;
+							};
 							home-manager.users.lain = import ./home.nix;
 						}
 					];
