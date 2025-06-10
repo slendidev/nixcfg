@@ -77,6 +77,8 @@ set -g default-terminal "screen-256color"
 			"datagrip"
 			"docker"
 			"krita"
+			"obs"
+			"handbrake"
 		];
 	};
 

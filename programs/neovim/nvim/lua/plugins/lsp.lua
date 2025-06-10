@@ -17,10 +17,10 @@ return {
 						vim.bo[buffer].omnifunc = 'v:lua.vim.lsp.omnifunc'
 						vim.lsp.completion.enable(true, client.id, buffer)
 
-						vim.keymap.set('i', '<C-j>', [[pumvisible() ? "\<C-n>" : luaeval("vim.lsp.completion.get()")]], {
+						vim.keymap.set('i', '<C-j>', [[pumvisible() ? "\<C-n>" : "\<C-x>\<C-o>"]], {
 							expr = true,
 							noremap = true,
-							silent = true
+							silent = true,
 						})
 						vim.keymap.set('i', '<C-k>', 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true, silent = true })
 
