@@ -50,7 +50,10 @@
 		];
 	};
 
-	boot.loader.systemd-boot.enable = true;
+	boot.loader.systemd-boot = {
+		enable = true;
+		memtest86.enable = true;
+	};
 	boot.loader.efi.canTouchEfiVariables = true;
 
 	boot.blacklistedKernelModules = [ "nouveau" ];
@@ -106,7 +109,7 @@
 
 	programs.alvr = {
 		enable = true;
-		openFirewall = true;
+		openFirewall = false;
 	};
 
 	services.journald.extraConfig = ''
@@ -131,7 +134,7 @@
 
 	services.samba = {
 		enable = true;
-		openFirewall = true;
+		openFirewall = false;
 
 		settings = {
 			public = {
@@ -297,9 +300,7 @@ set -g default-terminal "screen-256color"
 	};
 
 	networking.firewall = {
-		enable = true;
-		allowedTCPPorts = [ 3689 5000 7000 ] ++ (builtins.genList (x: 32768 + x) (60999 - 32768 + 1));
-		allowedUDPPorts = [ 319 320 5353 6000 6001 6002 6003 6004 6005 6006 6007 6008 6009 ] ++ (builtins.genList (x: 32768 + x) (60999 - 32768 + 1));
+		enable = false;
 	};
 
 	virtualisation.waydroid.enable = true;
@@ -310,7 +311,7 @@ set -g default-terminal "screen-256color"
 	services.ollama = {
 		enable = true;
 		acceleration = "cuda";
-		openFirewall = true;
+		openFirewall = false;
 	};
 
 	# Copy the NixOS configuration file and link it from the resulting system

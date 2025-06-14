@@ -119,7 +119,6 @@
 		wl-clipboard
 		playerctl
 		pamixer
-		cli-visualizer
 
 		easyeffects
 		pavucontrol
