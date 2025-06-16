@@ -305,6 +305,8 @@ set -g default-terminal "screen-256color"
 
 	virtualisation.waydroid.enable = true;
 	virtualisation.docker.enable = true;
+	virtualisation.docker.autoPrune.enable = true;
+	virtualisation.docker.enableNvidia = true;
 
 	services.postgresql.enable = true;
 
