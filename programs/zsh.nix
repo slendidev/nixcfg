@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
 	isDarwin = pkgs.stdenv.isDarwin;
-	isAarch64Darwin = isDarwin && pkgs.system == "aarch64-darwin";
 in
 {
 	programs.zsh = {
@@ -23,11 +22,11 @@ in
 			];
 		};
 
-		initExtra = ''
+		initContent = ''
 			setopt AUTO_CD
 			bindkey -v
 			bindkey '^R' history-incremental-search-backward
-			source ~/.p10k.zsh
+			source "$HOME/.p10k.zsh"
 			eval "$(direnv hook zsh)"
 
 			alias cd="z"
@@ -70,7 +69,7 @@ in
 			export LESS_TERMCAP_ue=$'\e[0m'
 			export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-			export LD_LIBRARY_PATH="${pkgs.libGL}/lib/:$LD_LIBRARY_PATH"
+			#export LD_LIBRARY_PATH="${pkgs.libGL}/lib/:$LD_LIBRARY_PATH"
 			export PATH="$HOME/.local/bin:$PATH"
 
 			export QT_IM_MODULE=fcitx

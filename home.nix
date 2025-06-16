@@ -53,13 +53,6 @@ in
 		};
 	};
 
-	programs.mpv = {
-		enable = true;
-		scripts = [
-			pkgs.mpvScripts.mpris
-		];
-	};
-
 	home.packages =
 		common.homePackages ++
 		(with pkgs; [
@@ -159,7 +152,15 @@ path = "${config.home.homeDirectory}/Pictures/Wallpapers"
 sorting = "random"
 mode = "center"'';
 
-	programs = commonPrograms;
+	programs = commonPrograms // {
+		home-manager.enable = true;
+		mpv = {
+			enable = true;
+			scripts = [
+				pkgs.mpvScripts.mpris
+			];
+		};
+	};
 
 	imports = [
 		./programs/neovim
@@ -179,6 +180,4 @@ mode = "center"'';
 	};
 
 	home.stateVersion = "24.05";
-
-	programs.home-manager.enable = true;
 }

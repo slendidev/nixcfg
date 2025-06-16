@@ -3,6 +3,8 @@ let
 	common = import ./common/defaults.nix { inherit pkgs; };
 in
 {
+	system.primaryUser = "lain";
+
 	nix = {
 		settings = {
 			max-jobs = 2;
@@ -69,20 +71,20 @@ set -g default-terminal "screen-256color"
 	system = {
 		defaults = {
 			dock = {
-	autohide = true;
-	largesize = 64;
-	magnification = true;
-	show-recents = false;
+				autohide = true;
+				largesize = 64;
+				magnification = true;
+				show-recents = false;
 			};
 			finder = {
-	AppleShowAllExtensions = true;
-	ShowPathbar = true;
-	FXEnableExtensionChangeWarning = false;
+				AppleShowAllExtensions = true;
+				ShowPathbar = true;
+				FXEnableExtensionChangeWarning = false;
 			};
 			NSGlobalDomain = {
-	InitialKeyRepeat = 15;
-	KeyRepeat = 2;
-	ApplePressAndHoldEnabled = false;
+				InitialKeyRepeat = 15;
+				KeyRepeat = 2;
+				ApplePressAndHoldEnabled = false;
 			};
 		};
 		keyboard = {
@@ -95,24 +97,24 @@ set -g default-terminal "screen-256color"
 		yabai = {
 			enable = true;
 			config = {
-	"layout" = "bsp";
+				"layout" = "bsp";
 
-	"top_padding"    = 16;
-	"bottom_padding" = 16;
-	"left_padding"   = 16;
-	"right_padding"  = 16;
-	"window_gap"     = 16;
+				"top_padding"    = 16;
+				"bottom_padding" = 16;
+				"left_padding"   = 16;
+				"right_padding"  = 16;
+				"window_gap"     = 16;
 
-	"auto_balance" = true;
-	#"focus_follows_mouse" = "autofocus";
+				"auto_balance" = true;
+				#"focus_follows_mouse" = "autofocus";
 
-	"mouse_modifier" = "alt";
-	"mouse_action1" = "move";
-	"mouse_action2" = "resize";
+				"mouse_modifier" = "alt";
+				"mouse_action1" = "move";
+				"mouse_action2" = "resize";
 			};
 			extraConfig = ''
-	yabai -m rule --add app="^Etterna$" manage=off
-	yabai -m rule --add app="^System Settings$" manage=off
+				yabai -m rule --add app="^Etterna$" manage=off
+				yabai -m rule --add app="^System Settings$" manage=off
 			'';
 		};
 	};

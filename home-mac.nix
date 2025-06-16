@@ -1,4 +1,4 @@
-{ config, pkgs, system, ... } :
+{ config, pkgs, ... } :
 let
 	common = import ./common/defaults.nix { inherit pkgs; };
 	commonPrograms = import ./common/home-programs.nix;
@@ -6,8 +6,6 @@ in
 {
 	home.username = "lain";
 	home.homeDirectory = "/Users/lain";
-
-	programs.mpv.enable = true;
 
 	home.packages =
 		common.homePackages ++
@@ -28,8 +26,6 @@ path = "${config.home.homeDirectory}/Pictures/Wallpapers"
 sorting = "random"
 mode = "center"'';
 
-	programs = commonPrograms;
-
 	imports = [
 		./programs/neovim
 		./programs/zsh.nix
@@ -43,7 +39,11 @@ mode = "center"'';
 		};
 	};
 
-	programs.home-manager.enable = true;
+	programs = commonPrograms // {
+		mpv.enable = true;
+
+		home-manager.enable = true;
+	};
 
 	home.stateVersion = "24.05";
 }
