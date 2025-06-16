@@ -69,7 +69,7 @@ in
 			export LESS_TERMCAP_ue=$'\e[0m'
 			export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-			#export LD_LIBRARY_PATH="${pkgs.libGL}/lib/:$LD_LIBRARY_PATH"
+                        ${lib.optionalString (!isDarwin) "#export LD_LIBRARY_PATH=\"${pkgs.libGL}/lib/:$LD_LIBRARY_PATH\""}
 			export PATH="$HOME/.local/bin:$PATH"
 
 			export QT_IM_MODULE=fcitx
