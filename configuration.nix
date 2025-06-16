@@ -3,6 +3,9 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, pkgs, inputs, ... }:
+let
+	common = import ./common/defaults.nix { inherit pkgs; };
+in
 
 {
 	imports =
@@ -210,77 +213,62 @@ set -g default-terminal "screen-256color"
 		inputs.nixgl.overlay
 	];
 	
-	environment.systemPackages = with pkgs; [
-		qemu
-		quickemu
-		swtpm
-		gnumake
 
-		gamemode
+	environment.systemPackages =
+		common.systemPackages ++
+		(with pkgs; [
+			qemu
+			quickemu
+			swtpm
+			gnumake
 
-		distrobox
-		nvidia-container-toolkit
-		cachix
+			gamemode
 
-		libnotify
-		hyprnotify
+			distrobox
+			nvidia-container-toolkit
+			cachix
 
-		udiskie
+			libnotify
+			hyprnotify
 
-		git
-		neovim
-		curl
-		kitty
+			udiskie
 
-		p7zip
-		xz
-		zip
-		unzip
+			dnsutils
+			nmap
 
-		file
-		which
-		tree
-		gawk
-		gnused
-		gnutar
+			strace
+			ltrace
+			lsof
 
-		dnsutils
-		nmap
+			sysstat
+			lm_sensors
+			pciutils
+			usbutils
 
-		strace
-		ltrace
-		lsof
+			inputs.zen-browser.packages.${pkgs.system}.default
+			inputs.glslcc-flake.packages.${pkgs.system}.default
 
-		sysstat
-		lm_sensors
-		pciutils
-		usbutils
+			inputs.hyprland-qtutils.packages.${pkgs.system}.default
+			inputs.hyprpolkitagent.packages.${pkgs.system}.default
+			kdePackages.qqc2-desktop-style
 
-		inputs.zen-browser.packages.${pkgs.system}.default
-		inputs.glslcc-flake.packages.${pkgs.system}.default
+			wofi
+			wpaperd
+			hyprshot
+			open-vm-tools
 
-		inputs.hyprland-qtutils.packages.${pkgs.system}.default
-		inputs.hyprpolkitagent.packages.${pkgs.system}.default
-		kdePackages.qqc2-desktop-style
+			man-pages
+			man-pages-posix
 
-		wofi
-		wpaperd
-		hyprshot
-		open-vm-tools
+			wineWowPackages.stable
+			wine
+			(wine.override { wineBuild = "wine64"; })
+			wine64
+			wineWowPackages.staging
+			winetricks
 
-		man-pages
-		man-pages-posix
-
-		wineWowPackages.stable
-		wine
-		(wine.override { wineBuild = "wine64"; })
-		wine64
-		wineWowPackages.staging
-		winetricks
-
-		ed
-	];
-
+			ed
+		]);
 	fonts.packages = with pkgs; [
 		noto-fonts
 		noto-fonts-cjk-sans
@@ -294,10 +282,10 @@ set -g default-terminal "screen-256color"
 
 	documentation.dev.enable = true;
 
-	environment.variables = {
-		EDITOR = "nvim";
-		IBUS_ENABLE_SYNC_MODE = "1";
-	};
+	environment.variables =
+		common.envVars // {
+			IBUS_ENABLE_SYNC_MODE = "1";
+		};
 
 	networking.firewall = {
 		enable = false;

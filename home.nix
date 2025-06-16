@@ -1,4 +1,8 @@
 { config, pkgs, blast, system, ... } :
+let
+	common = import ./common/defaults.nix { inherit pkgs; };
+	commonPrograms = import ./common/home-programs.nix;
+in
 {
 	home.username = "lain";
 	home.homeDirectory = "/home/lain";
@@ -16,24 +20,24 @@
 	home.pointerCursor =
 		let
 			getFrom = url: hash: name: {
-				gtk.enable = true;
-				x11.enable = true;
-				name = name;
-				size = 24;
-				package =
-					pkgs.runCommand "moveUp" {} ''
-						mkdir -p $out/share/icons
-						ln -s ${pkgs.fetchzip {
-							url = url;
-							hash = hash;
-						}} $out/share/icons/${name}
-					'';
+	gtk.enable = true;
+	x11.enable = true;
+	name = name;
+	size = 24;
+	package =
+		pkgs.runCommand "moveUp" {} ''
+		mkdir -p $out/share/icons
+		ln -s ${pkgs.fetchzip {
+			url = url;
+			hash = hash;
+		}} $out/share/icons/${name}
+		'';
 			};
 		in
 			getFrom
-				"https://github.com/supermariofps/hatsune-miku-windows-linux-cursors/files/14914322/miku-cursor-linux-1.2.4.zip"
-				"sha256-D3vd/F9mo9vXH1qzpnLP8NM0J1kVqPEdmDZoSqN1hMk="
-				"MikuCursors";
+	"https://github.com/supermariofps/hatsune-miku-windows-linux-cursors/files/14914322/miku-cursor-linux-1.2.4.zip"
+	"sha256-D3vd/F9mo9vXH1qzpnLP8NM0J1kVqPEdmDZoSqN1hMk="
+	"MikuCursors";
 
 	gtk = {
 		enable = true;
@@ -56,111 +60,93 @@
 		];
 	};
 
-	home.packages = with pkgs; [
-		(pkgs.python312.withPackages (ppkgs: [
+	home.packages =
+		common.homePackages ++
+		(with pkgs; [
+			(pkgs.python312.withPackages (ppkgs: [
 			ppkgs.numpy
 			ppkgs.ipython
 			ppkgs.pyzmq
 			ppkgs.pyserial
-		]))
-		unityhub
-		openseeface
-		lorien
+			]))
+			unityhub
+			openseeface
+			lorien
 
-		qpwgraph
+			qpwgraph
 
-		direnv
-		steamcmd
-		ryujinx
-		gzdoom
-		r2modman
+			steamcmd
+			ryujinx
+			gzdoom
+			r2modman
 
-		monero-gui
-		tor-browser-bundle-bin
+			monero-gui
+			tor-browser-bundle-bin
 
-		libreoffice
-		qbittorrent
+			libreoffice
+			qbittorrent
 
-		#lmms
-		#surge
-		#vital
-		#helm
-		#calf
-		#noise-repellent
-		#drumgizmo
-		#bespokesynth
-		#yabridge
+			#lmms
+			#surge
+			#vital
+			#helm
+			#calf
+			#noise-repellent
+			#drumgizmo
+			#bespokesynth
+			#yabridge
 
-		fastfetch
+			zathura
 
-		ripgrep
-		jq
-		zoxide
-		eza
-		hut
-		calc
-		tokei
+			handbrake
+			(pkgs.wrapOBS { plugins = [ pkgs.obs-studio-plugins.wlrobs pkgs.obs-studio-plugins.obs-vkcapture ]; })
 
-		ani-cli
-		yt-dlp
+			arduino-cli
+			gf
 
-		zathura
+			wl-clipboard
+			playerctl
+			pamixer
 
-		handbrake
-		ffmpeg
-		(pkgs.wrapOBS { plugins = [ pkgs.obs-studio-plugins.wlrobs pkgs.obs-studio-plugins.obs-vkcapture ]; })
+			easyeffects
+			pavucontrol
+			helvum
+			nautilus
+			nautilus-python
+			sushi
+			nautilus-open-any-terminal
+			ffmpegthumbnailer
 
-		arduino-cli
-		gf
+			nextcloud-client
+			keepassxc
+			inkscape
+			goofcord
 
-		btop
-		htop
+			bs-manager
+			zenity
 
-		wl-clipboard
-		playerctl
-		pamixer
+			thunderbird
+			blender
+			krita
 
-		easyeffects
-		pavucontrol
-		helvum
-		nautilus
-		nautilus-python
-		sushi
-		nautilus-open-any-terminal
-		ffmpegthumbnailer
+			texliveFull
 
-		nextcloud-client
-		keepassxc
-		inkscape
-		goofcord
-		weechat
+			kdePackages.xwaylandvideobridge
 
-		prismlauncher
-		bs-manager
-		zenity
+			qzdl
+			gzdoom
 
-		thunderbird
-		blender
-		krita
+			android-studio
 
-		texliveFull
+			blast.packages."${system}".blast
 
-		kdePackages.xwaylandvideobridge
-
-		qzdl
-		gzdoom
-
-		android-studio
-
-		blast.packages."${system}".blast
-
-		(let
+			(let
 			renderdocWithWayland = renderdoc.overrideAttrs (oldAttrs: {
-				waylandSupport = true;
+			waylandSupport = true;
 			});
-		in
+			in
 			renderdocWithWayland)
-	];
+	]);
 
 	home.file.".config/nixpkgs/config.nix".text = ''
 {
@@ -173,36 +159,7 @@ path = "${config.home.homeDirectory}/Pictures/Wallpapers"
 sorting = "random"
 mode = "center"'';
 
-	programs = {
-		git = {
-			enable = true;
-			userName = "Slendi";
-			userEmail = "slendi@socopon.com";
-			extraConfig = {
-				gpg = {
-					format = "ssh";
-				};
-				user = {
-					signingkey = "~/.ssh/id_ed25519.pub";
-				};
-			};
-		};
-
-		kitty = {
-			enable = true;
-			extraConfig = ''
-			background_opacity 0.8
-			mouse_hide_wait 0
-			default_pointer_shape arrow
-			pointer_shape_when_dragging arrow
-			confirm_os_window_close 0
-			window_padding_width 4
-			map ctrl+shift+k clear_terminal scrollback
-			cursor_trail 3
-			map ctrl+shift+w none
-			'';
-		};
-	};
+	programs = commonPrograms;
 
 	imports = [
 		./programs/neovim
