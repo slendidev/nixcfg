@@ -29,6 +29,16 @@ in
 			source "$HOME/.p10k.zsh"
 			eval "$(direnv hook zsh)"
 
+			function gtoday() {
+				printf 'Commits made today: '
+				git log --author="$(git config user.name)" --since=midnight --pretty=oneline | wc -l
+				git log --author="$(git config user.name)" --since=midnight --numstat --pretty=tformat: |
+				awk 'NF==3 && $1!="-" && $2!="-" {
+				a+=$1;d+=$2
+				}
+				END {printf "Added %d, deleted %d\n", a, d}'
+			}
+
 			alias cd="z"
 			alias ls="eza"
 			alias ll="eza -l"
