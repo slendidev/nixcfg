@@ -304,6 +304,27 @@ set -g default-terminal "screen-256color"
 		openFirewall = false;
 	};
 
+	power.ups = {
+		enable = true;
+		mode = "standalone";
+		ups."cyberpower" = {
+			driver = "usbhid-ups";
+			description = "CyberPower VP1600ELCD";
+			port = "auto";
+		};
+		upsmon.monitor."cyberpower" = {
+			powerValue = 1;
+			passwordFile = "${./password_ups}";
+			user = "lain";
+		};
+		users."lain" = {
+			upsmon = "primary";
+			actions = [ "SET" "FSD" ];
+			instcmds = [ "ALL" ];
+			passwordFile = "${./password_ups}";
+		};
+	};
+
 	# Copy the NixOS configuration file and link it from the resulting system
 	# (/run/current-system/configuration.nix). This is useful in case you
 	# accidentally delete configuration.nix.
