@@ -1,5 +1,5 @@
 # Applications
-alt - space : kitty -1 ~ & disown
+alt - space : wezterm & disown
 
 # Window manager
 ################

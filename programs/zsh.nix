@@ -1,111 +1,124 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
-	isDarwin = pkgs.stdenv.isDarwin;
+  isDarwin = pkgs.stdenv.isDarwin;
 in
 {
-	programs.zsh = {
-		enable = true;
-		enableCompletion = true;
-		autosuggestion.enable = true;
-		syntaxHighlighting.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
 
-		history = {
-			size = 10000;
-			path = "${config.xdg.dataHome}/zsh/history";
-		};
+    history = {
+      size = 10000;
+      path = "${config.xdg.dataHome}/zsh/history";
+    };
 
-		zplug = {
-			enable = true;
-			plugins = [
-				{ name = "zsh-users/zsh-autosuggestions"; }
-				{ name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
-			];
-		};
+    zplug = {
+      enable = true;
+      plugins = [
+        { name = "zsh-users/zsh-autosuggestions"; }
+        {
+          name = "romkatv/powerlevel10k";
+          tags = [
+            "as:theme"
+            "depth:1"
+          ];
+        }
+      ];
+    };
 
-		initContent = ''
-			setopt AUTO_CD
-			bindkey -v
-			bindkey '^R' history-incremental-search-backward
-			source "$HOME/.p10k.zsh"
-			eval "$(direnv hook zsh)"
+    initContent = ''
+      			setopt AUTO_CD
+      			bindkey -v
+      			bindkey '^R' history-incremental-search-backward
+      			source "$HOME/.p10k.zsh"
+      			eval "$(direnv hook zsh)"
 
-			function gtoday() {
-				printf 'Commits made today: '
-				git log --author="$(git config user.name)" --since=midnight --pretty=oneline | wc -l
-				git log --author="$(git config user.name)" --since=midnight --numstat --pretty=tformat: |
-				awk 'NF==3 && $1!="-" && $2!="-" {
-				a+=$1;d+=$2
-				}
-				END {printf "Added %d, deleted %d\n", a, d}'
-			}
+      			function gtoday() {
+      				printf 'Commits made today: '
+      				git log --author="$(git config user.name)" --since=midnight --pretty=oneline | wc -l
+      				git log --author="$(git config user.name)" --since=midnight --numstat --pretty=tformat: |
+      				awk 'NF==3 && $1!="-" && $2!="-" {
+      				a+=$1;d+=$2
+      				}
+      				END {printf "Added %d, deleted %d\n", a, d}'
+      			}
 
-			alias cd="z"
-			alias ls="eza"
-			alias ll="eza -l"
-			alias gc="git commit -svS"
-			alias gp="git push"
-			alias gpf="git push --force-with-lease"
-			alias ga="git add"
-			alias gs="git status"
-			alias "gc!"="git commit --amend"
-			alias gcld="git clone --depth 1 --recursive --shallow-submodules"
-			alias gcl="git clone --recurse --shallow-submodules"
-			alias gl="git pull --rebase"
-			alias glo="git log"
-			alias gd="git diff"
-			alias gds="git diff --staged"
-			alias grep="rg"
-			alias ssh="kitten ssh"
-			alias x="chmod +x"
+      			alias cd="z"
+      			alias ls="eza"
+      			alias ll="eza -l"
+      			alias gc="git commit -svS"
+      			alias gp="git push"
+      			alias gpf="git push --force-with-lease"
+      			alias ga="git add"
+      			alias gs="git status"
+      			alias "gc!"="git commit --amend"
+      			alias gcld="git clone --depth 1 --recursive --shallow-submodules"
+      			alias gcl="git clone --recurse --shallow-submodules"
+      			alias gl="git pull --rebase"
+      			alias glo="git log"
+      			alias gd="git diff"
+      			alias gds="git diff --staged"
+      			alias grep="rg"
+      			alias ssh="kitten ssh"
+      			alias x="chmod +x"
 
-			${lib.optionalString (!isDarwin) "alias open=\"xdg-open\""}
-			${lib.optionalString isDarwin "alias upd=\"darwin-rebuild switch\""}
-			${lib.optionalString (!isDarwin) "alias upd=\"sudo nixos-rebuild switch\""}
+      			${lib.optionalString (!isDarwin) "alias open=\"xdg-open\""}
+      			${lib.optionalString isDarwin "alias upd=\"sudo darwin-rebuild switch\""}
+      			${lib.optionalString (!isDarwin) "alias upd=\"sudo nixos-rebuild switch\""}
 
-			nix() {
-				if [[ $1 == "develop" ]]; then
-					shift
-					command nix develop -c $SHELL "$@"
-				else
-					command nix "$@"
-				fi
-			}
+      			nix() {
+      				if [[ $1 == "develop" ]]; then
+      					shift
+      					command nix develop -c $SHELL "$@"
+      				else
+      					command nix "$@"
+      				fi
+      			}
 
-			export LESS_TERMCAP_mb=$'\e[1;32m'
-			export LESS_TERMCAP_md=$'\e[1;32m'
-			export LESS_TERMCAP_me=$'\e[0m'
-			export LESS_TERMCAP_se=$'\e[0m'
-			export LESS_TERMCAP_so=$'\e[01;33m'
-			export LESS_TERMCAP_ue=$'\e[0m'
-			export LESS_TERMCAP_us=$'\e[1;4;31m'
+      			export LESS_TERMCAP_mb=$'\e[1;32m'
+      			export LESS_TERMCAP_md=$'\e[1;32m'
+      			export LESS_TERMCAP_me=$'\e[0m'
+      			export LESS_TERMCAP_se=$'\e[0m'
+      			export LESS_TERMCAP_so=$'\e[01;33m'
+      			export LESS_TERMCAP_ue=$'\e[0m'
+      			export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-                        ${lib.optionalString (!isDarwin) "#export LD_LIBRARY_PATH=\"${pkgs.libGL}/lib/:$LD_LIBRARY_PATH\""}
-			export PATH="$HOME/.local/bin:$PATH"
+                              ${lib.optionalString (
+                                !isDarwin
+                              ) "#export LD_LIBRARY_PATH=\"${pkgs.libGL}/lib/:$LD_LIBRARY_PATH\""}
+      			export PATH="$HOME/.local/bin:$PATH"
 
-			export QT_IM_MODULE=fcitx
-			export XMODIFIERS=@im=fcitx
+      			export QT_IM_MODULE=fcitx
+      			export XMODIFIERS=@im=fcitx
 
-			alias gsudo='sudo git -c "include.path=''${XDG_CONFIG_DIR:-$HOME/.config}/git/config" -c "include.path=$HOME/.gitconfig"'
+      			alias gsudo='sudo git -c "include.path=''${XDG_CONFIG_DIR:-$HOME/.config}/git/config" -c "include.path=$HOME/.gitconfig"'
 
-			if [[ ! -f ~/.ssh/id_ed25519 ]]; then
-				echo "SSH key not found. Generating a new one..."
-				ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
-			fi
+      			if [[ ! -f ~/.ssh/id_ed25519 ]]; then
+      				echo "SSH key not found. Generating a new one..."
+      				ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
+      			fi
 
-			zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+      			zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-			# eza completion using exa script
-			mkdir -p ~/.zsh/completions
-			if [[ ! -f ~/.zsh/completions/_eza ]]; then
-				curl -sLo ~/.zsh/completions/_eza https://raw.githubusercontent.com/ogham/exa/master/completions/zsh/_exa
-			fi
-			fpath=(~/.zsh/completions $fpath)
-		'';
-	};
+      			# eza completion using exa script
+      			mkdir -p ~/.zsh/completions
+      			if [[ ! -f ~/.zsh/completions/_eza ]]; then
+      				curl -sLo ~/.zsh/completions/_eza https://raw.githubusercontent.com/ogham/exa/master/completions/zsh/_exa
+      			fi
+      			fpath=(~/.zsh/completions $fpath)
+      		'';
+  };
 
-	programs.zoxide = {
-		enable = true;
-		enableBashIntegration = true;
-		enableZshIntegration = true;
-	};
+  programs.zoxide = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
 }
