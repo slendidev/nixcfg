@@ -44,6 +44,8 @@ return {
 				local conf = config()
 				if lsp == 'emmet_ls' then
 					conf.filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' }
+				elseif lsp == 'clangd' then
+					conf.cmd = { 'clangd', '--experimental-modules-support' }
 				end
 				lspconfig[lsp].setup(conf)
 			end
@@ -53,7 +55,7 @@ return {
 			vim.cmd('sign define DiagnosticSignInfo text=☢ texthl=DiagnosticSignInfo')
 			vim.cmd('sign define DiagnosticSignHint text=☢ texthl=DiagnosticSignHint')
 
-			vim.diagnostic.config({virtual_lines=true})
+			vim.diagnostic.config({ virtual_text = true })
 		end
 	}
 }
