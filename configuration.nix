@@ -76,8 +76,6 @@ in
   boot.initrd.kernelModules = [ "btusb" ];
   #boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.kernel.sysctl."kernel.sysrq" = 1;
-  boot.kernel.sysctl."vm.dirty_background_bytes" = 67108864;
-  boot.kernel.sysctl."vm.dirty_bytes" = 268435456;
 
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernelModules = [ "v4l2loopback" ];
