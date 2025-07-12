@@ -23,6 +23,7 @@ in
   hardware.nvidia-container-toolkit.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+  hardware.opengl.enable = true;
 
   nix.settings = {
     max-jobs = 2;
@@ -57,7 +58,7 @@ in
   nixpkgs.config.android_sdk.accept_license = true;
 
   # TODO: Re-enable when this issue is closed: https://github.com/NixOS/nixpkgs/issues/392841
-  #virtualisation.vmware.host.enable = true;
+  virtualisation.vmware.host.enable = true;
 
   boot.binfmt = {
     emulatedSystems = [
@@ -73,8 +74,10 @@ in
 
   boot.blacklistedKernelModules = [ "nouveau" ];
   boot.initrd.kernelModules = [ "btusb" ];
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  #boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.kernel.sysctl."kernel.sysrq" = 1;
+  boot.kernel.sysctl."vm.dirty_background_bytes" = 67108864;
+  boot.kernel.sysctl."vm.dirty_bytes" = 268435456;
 
   boot.supportedFilesystems = [ "ntfs" ];
   boot.kernelModules = [ "v4l2loopback" ];
@@ -292,6 +295,7 @@ in
       winetricks
 
       openutau
+      gtk3
 
       uxplay
 
@@ -329,6 +333,28 @@ in
     enable = true;
     acceleration = "cuda";
     openFirewall = false;
+  };
+
+  services.snap.enable = true;
+
+  services.wivrn = {
+    enable = true;
+    autoStart = true;
+    config = {
+      enable = true;
+      json = {
+        bitrate = 1000 * 1000000; # 1000 mbps
+        encoders = [
+          {
+            encoder = "nvenc";
+            codec = "nv1";
+          }
+        ];
+        application = with pkgs; [
+          wlx-overlay-s
+        ];
+      };
+    };
   };
 
   power.ups = {
